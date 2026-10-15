@@ -1,0 +1,31 @@
+Seeing "Currently unavailable for your pincode"? PinScout finds the nearest pincode where the product can be delivered.
+
+PinScout is a free delivery checker for online shopping in India. Open a product page on a supported shopping site, type your pincode, and PinScout checks delivery for you. It starts with your own pincode, then moves to nearby pincodes, then the rest of your state, then the rest of India. It stops at the first place the product can be delivered and shows you where, along with the delivery date the site gives.
+
+This is useful when a phone, gadget or limited-stock item can't be delivered to you, but could be delivered to a friend, relative, hostel or office a few kilometres away.
+
+What it does
+• Saves you from typing pincode after pincode into a site's delivery box
+• Uses India Post data for about 19,500 pincodes, so "nearby" really means nearby
+• Lets you choose how far to search: nearby only, your state, or all of India
+• Can keep going and list every place the product is available
+• Runs in Chrome's side panel, so you can keep browsing while it checks
+• Puts your own delivery pincode back on sites that remember it
+
+PinScout currently works with six popular Indian shopping sites. The panel tells you when the page you are on is supported.
+
+How to use it
+1. Open a product page on a supported site.
+2. Click the PinScout icon to open the side panel.
+3. Type your pincode and press Enter.
+4. Watch the results come in and see the nearest place it can be delivered.
+
+Want another site supported?
+Open "Help add a new store" in the panel and follow the steps. PinScout records how that site checks delivery, hides tokens and personal details, and lets you email the recording to the developer from your own email app. Nothing is sent automatically.
+
+Privacy
+PinScout is free, needs no sign-up and shows no ads. It has no server and no analytics. Delivery checks go straight from your browser to the site you are on, and your pincode is saved only on your device.
+
+Pincode data: Department of Posts, Government of India, via data.gov.in (Government Open Data Licence – India). PinScout is an independent tool and is not affiliated with any shopping site.
+
+Feedback: getsaurabhpagrut@gmail.com

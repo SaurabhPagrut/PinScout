@@ -1,0 +1,14 @@
+# Built packages
+*.zip
+
+# Demo video and its source frames
+webstore/video/
+
+# Dependencies / build output
+node_modules/
+frontend/dist/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*

@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PinScout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --a1:#6d28d9; --a2:#0f766e; --btn-fg:#fff;
+      --bg:#f6f6fc; --bg2:#eaf6f4; --fg:#15151f; --muted:#5b5e70;
+      --glass:rgba(255,255,255,.80); --card:rgba(255,255,255,.88); --line:rgba(90,80,150,.20);
+      --ok:rgba(22,163,74,.14); --bad:rgba(220,38,38,.12); --warn:rgba(217,119,6,.16); --tint:rgba(109,40,217,.09);
+    }
+    @media (prefers-color-scheme: dark) { :root {
+      --a1:#a78bfa; --a2:#2dd4bf; --btn-fg:#0c0c14;
+      --bg:#101018; --bg2:#0f1a1d; --fg:#f0f0f8; --muted:#a3a6bb;
+      --glass:rgba(22,22,34,.80); --card:rgba(30,30,46,.88); --line:rgba(170,160,255,.22);
+      --ok:rgba(34,197,94,.16); --bad:rgba(248,113,113,.16); --warn:rgba(251,191,36,.16); --tint:rgba(167,139,250,.12);
+    } }
+    * { box-sizing: border-box; }
+    [hidden] { display:none !important; }
+    html { background:var(--bg); }
+    body { margin:0; font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--fg);
+      background: radial-gradient(900px 500px at 0% -10%, var(--tint), transparent 60%),
+                  radial-gradient(700px 500px at 110% 110%, var(--bg2), transparent 60%), var(--bg);
+      min-height:100vh; }
+    #fx { position:fixed; inset:0; z-index:0; pointer-events:none; }
+    #app { position:relative; z-index:1; padding:12px 14px 16px; }
+
+    header { display:flex; align-items:center; gap:10px; }
+    #logo { flex:none; filter: drop-shadow(0 2px 6px rgba(109,40,217,.3)); }
+    #logo .sweep { transform-origin:16px 16px; }
+    body.scanning #logo .sweep { animation: spin 1.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { body.scanning #logo .sweep { animation:none; } }
+    h1 { font-size:18px; line-height:1.1; margin:0; letter-spacing:-.01em;
+      background:linear-gradient(90deg,var(--a1),var(--a2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    /* Both icon buttons share one size: 34x34. */
+    #closePanel, #pinGo { flex:none; width:34px; height:34px; padding:0; display:grid; place-items:center; }
+    #closePanel { margin-left:auto;
+      background:var(--card); color:var(--muted); border:1px solid var(--line); border-radius:8px; font-size:18px; line-height:1; }
+    #closePanel:hover { color:var(--fg); border-color:var(--a1); }
+    #retailer { font-size:11.5px; color:var(--muted); line-height:1.25; margin-top:2px; }
+    .muted { color:var(--muted); font-size:12px; }
+    .title { display:block; font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); margin:0 0 5px; }
+
+    #top { display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px; }
+    @media (min-width: 560px) { #top { grid-template-columns: 210px 1fr; gap:18px; align-items:start; } }
+
+    #pin { width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--fg); font-size:16px; letter-spacing:.08em; outline:none; }
+    #pinWrap { position:relative; }
+    #pinWrap #pin { padding-right:44px; min-height:42px; }
+    #pinGo { position:absolute; top:50%; right:4px; transform:translateY(-50%);
+      border-radius:8px; background:linear-gradient(135deg,var(--a1),var(--a2)); color:var(--btn-fg); }
+    #pin:focus { border-color:var(--a1); box-shadow:0 0 0 3px var(--tint); }
+    #dataInfo { margin-top:5px; font-size:11px; line-height:1.3; }
+    #dataInfo.warn { color:#b45309; font-weight:600; }
+
+    #tiers { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+    @media (min-width: 760px) { #tiers { grid-template-columns:repeat(4, 1fr); } }
+    .chip { display:flex; gap:6px; align-items:flex-start; padding:6px 8px; border:1px solid var(--line); border-radius:10px; background:var(--card); min-width:0; transition:border-color .15s, background .15s; }
+    .chip:has(input:checked) { border-color:var(--a1); background:linear-gradient(135deg,var(--tint),var(--card)); }
+    .chip input { margin:2px 0 0; flex:none; accent-color:var(--a1); }
+    .chip label { margin:0; font-weight:500; font-size:12px; line-height:1.25; cursor:pointer; min-width:0; }
+    .chip .count { display:block; color:var(--muted); font-weight:400; font-size:11px; }
+    .chip.empty { opacity:.55; }
+    .chip.empty label { text-decoration:line-through; cursor:default; }
+
+    details { margin-top:10px; font-size:12px; background:var(--glass); border:1px solid var(--line); border-radius:10px; padding:7px 10px; }
+    summary { cursor:pointer; color:var(--muted); user-select:none; font-weight:600; }
+    details[open] summary { margin-bottom:4px; }
+    .opt { margin:6px 0 0 2px; color:var(--muted); }
+    .opt select { font-size:12px; padding:2px 4px; border:1px solid var(--line); border-radius:6px; background:var(--card); color:var(--fg); }
+    .check { display:flex; align-items:center; gap:8px; margin:8px 0 0 2px; font-size:12px; }
+    .check input { accent-color:var(--a1); }
+    .check label { margin:0; font-weight:400; }
+    .hint { margin:4px 0 8px; color:var(--muted); line-height:1.45; }
+    .inline { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+    .inline input { width:110px; padding:6px 8px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--fg); font-size:13px; }
+    #recBox { margin-top:8px; }
+    .recBar { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:5px 6px 5px 10px; border:1px solid var(--line); border-bottom:0; border-radius:8px 8px 0 0; background:var(--card); }
+    #recSend { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:8px; }
+    .btnlink { display:inline-block; padding:7px 12px; border-radius:10px; font-size:12px; font-weight:600; text-decoration:none;
+      color:var(--btn-fg); background:linear-gradient(135deg,var(--a1),var(--a2)); }
+    #recAddr { user-select:all; }
+    #recOut { display:block; width:100%; font:11px/1.35 ui-monospace, Menlo, Consolas, monospace; border:1px solid var(--line); border-radius:0 0 8px 8px; background:var(--card); color:var(--fg); padding:6px; resize:vertical; }
+
+    #controls { position:sticky; top:0; z-index:5; padding:10px 0 4px; margin-top:6px;
+      background:linear-gradient(var(--bg) 70%, transparent); }
+    .row { display:flex; gap:8px; }
+    button { flex:1; padding:10px; border:0; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; color:var(--btn-fg);
+      background:linear-gradient(135deg,var(--a1),var(--a2)); transition:filter .15s, transform .05s; }
+    button:hover:not(:disabled) { filter:brightness(1.08); }
+    button:active:not(:disabled) { transform:translateY(1px); }
+    button.secondary { background:var(--card); color:var(--fg); border:1px solid var(--line); }
+    button.mini { flex:none; padding:6px 10px; font-size:12px; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    #progress { margin-top:8px; height:5px; background:var(--line); border-radius:3px; overflow:hidden; }
+    #bar { height:100%; width:0; background:linear-gradient(90deg,var(--a1),var(--a2)); transition:width .2s; }
+
+    #summary { margin-top:10px; padding:10px 12px; border-radius:10px; background:var(--glass); border:1px solid var(--line); white-space:pre-wrap; }
+    #summary.ok { background:var(--ok); } #summary.bad { background:var(--bad); } #summary.warn { background:var(--warn); }
+    #log { margin:10px 0 0; padding:2px 10px; list-style:none; font-size:12px; background:var(--glass); border:1px solid var(--line); border-radius:10px; }
+    #log:empty { display:none; }
+    #log li { padding:4px 0; border-bottom:1px solid var(--line); }
+    #log li:last-child { border-bottom:0; }
+    #log li.tier { font-weight:700; color:var(--muted); border:0; padding-top:8px; text-transform:uppercase; letter-spacing:.05em; font-size:10.5px; }
+    footer { margin-top:14px; font-size:10px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <div id="app">
+    <header>
+      <svg id="logo" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" style="stop-color:var(--a1)"/><stop offset="1" style="stop-color:var(--a2)"/>
+        </linearGradient></defs>
+        <rect width="32" height="32" rx="8" fill="url(#lg)"/>
+        <circle cx="16" cy="16" r="3.6" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="1.7"/>
+        <circle cx="16" cy="16" r="8.4" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="1.4"/>
+        <circle cx="16" cy="16" r="13" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1.2"/>
+        <g class="sweep"><path d="M16 16 L16 3 A13 13 0 0 1 27.3 9.5 Z" fill="#fff" fill-opacity=".32"/></g>
+        <circle cx="22.2" cy="10.6" r="1.9" fill="#fff"/>
+      </svg>
+      <div>
+        <h1>PinScout</h1>
+        <div id="retailer">Open a product page on a supported store, then enter your pincode.</div>
+      </div>
+      <button id="closePanel" type="button" title="Close PinScout" aria-label="Close PinScout">&times;</button>
+    </header>
+
+    <div id="top">
+      <div id="pinBox">
+        <label class="title" for="pin">Your pincode</label>
+        <div id="pinWrap">
+          <input id="pin" type="text" maxlength="6" inputmode="numeric" autocomplete="off" placeholder="e.g. 560001">
+          <button id="pinGo" type="button" title="Search this pincode" aria-label="Search this pincode">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div id="dataInfo" class="muted">Loading pincode data…</div>
+      </div>
+
+      <div id="whereBox">
+        <span class="title">Where to search</span>
+        <div id="tiers">
+          <div class="chip"><input id="tier-home" type="checkbox" checked><label for="tier-home"><span id="lbl-home">Your pincode</span></label></div>
+          <div class="chip"><input id="tier-nearby" type="checkbox" checked><label for="tier-nearby"><span id="lbl-nearby">Nearby pincodes</span></label></div>
+          <div class="chip"><input id="tier-state" type="checkbox" checked><label for="tier-state"><span id="lbl-state">Rest of your state</span></label></div>
+          <div class="chip"><input id="tier-india" type="checkbox" checked><label for="tier-india"><span id="lbl-india">Rest of India</span></label></div>
+        </div>
+      </div>
+    </div>
+
+    <details id="settings">
+      <summary>Settings</summary>
+      <div class="opt">Check up to
+        <select id="nearbyCap">
+          <option value="10">10</option><option value="25">25</option><option value="50" selected>50</option>
+          <option value="100">100</option><option value="all">all</option>
+        </select> nearby pincodes</div>
+      <div class="opt">Rest of India coverage
+        <select id="indiaMode">
+          <option value="state:1" selected>1 per state (fast)</option>
+          <option value="state:3">3 per state</option>
+          <option value="district:1">1 per district (very slow)</option>
+        </select></div>
+      <div class="check">
+        <input id="keepGoing" type="checkbox">
+        <label for="keepGoing">Don't stop at the first hit (list every place it's available)</label>
+      </div>
+    </details>
+
+    <details id="recorder">
+      <summary>Help add a new store</summary>
+      <p class="hint">Teach PinScout how another store checks delivery.<br>
+        1. Open the store's product page.<br>
+        2. Type a pincode below and press <b>Start</b>. PinScout reloads the page once, so it's in place before the store's own code runs.<br>
+        3. On the store's page, change the delivery pincode to that same number. If the store reloads or opens other pages, that's fine.<br>
+        4. Press <b>Stop &amp; copy</b>, then <b>Send by email</b> and paste the recording into the email.<br>
+        Cookies, tokens, session values, addresses, names, phone numbers and e-mails are masked, but masking isn't perfect. If you're logged in, skim the result first, or record while logged out.</p>
+      <div id="storeList" class="muted" style="margin-bottom:8px"></div>
+      <div class="inline">
+        <input id="recPin" type="text" maxlength="6" inputmode="numeric" placeholder="pincode to watch">
+        <button id="recStart" class="mini">Start</button>
+        <button id="recStop" class="mini secondary" disabled>Stop &amp; copy</button>
+      </div>
+      <div id="recAccess" class="inline" style="margin-top:8px" hidden>
+        <input id="recDomain" type="text" placeholder="store domain, e.g. tatacliq.com" style="width:200px">
+        <button id="recGrant" class="mini">Allow access</button>
+      </div>
+      <div id="recStatus" class="muted" style="margin-top:6px"></div>
+      <div id="recBox" hidden>
+        <div class="recBar"><span id="recSummary" class="muted"></span><button id="recCopy" class="mini">Copy</button></div>
+        <textarea id="recOut" readonly rows="9"></textarea>
+        <div id="recSend">
+          <a id="recMail" class="btnlink" href="#" target="_blank" rel="noopener">Send by email</a>
+          <span class="muted">or paste it in an email to <b id="recAddr"></b></span>
+        </div>
+      </div>
+    </details>
+
+    <div id="controls">
+      <div class="row">
+        <button id="start">Find availability</button>
+        <button id="stop" class="secondary" disabled>Stop</button>
+      </div>
+      <div id="progress"><div id="bar"></div></div>
+    </div>
+
+    <div id="summary" class="muted">Type your pincode and press Enter.</div>
+    <ul id="log"></ul>
+
+    <footer>Pincode data: Department of Posts, Government of India, via data.gov.in (Government Open Data Licence – India).</footer>
+  </div>
+
+  <script src="lib/planner.js"></script>
+  <script src="lib/scanner.js"></script>
+  <script src="lib/stores.js"></script>
+  <script src="lib/adapters.js"></script>
+  <script src="lib/stores/flipkart.js"></script>
+  <script src="lib/stores/croma.js"></script>
+  <script src="lib/stores/myntra.js"></script>
+  <script src="lib/stores/amazon.js"></script>
+  <script src="lib/stores/blinkit.js"></script>
+  <script src="lib/stores/reliancedigital.js"></script>
+  <script src="lib/recorder.js"></script>
+  <script src="lib/particles.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

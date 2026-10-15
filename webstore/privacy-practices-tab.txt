@@ -1,0 +1,42 @@
+PRIVACY PRACTICES TAB: copy each block into the matching box
+==============================================================
+
+SINGLE PURPOSE DESCRIPTION
+--------------------------
+PinScout checks whether the product on the open shopping page can be delivered to a pincode, searching outward from the user's pincode to nearby pincodes, their state and the rest of India, and shows the nearest pincode where it can be delivered.
+
+
+PERMISSION JUSTIFICATIONS
+-------------------------
+
+storage:
+Saves the user's home pincode on their device so it is filled in next time. On Amazon it also keeps the user's original delivery pincode until it has been restored after a scan. Nothing is sent anywhere.
+
+sidePanel:
+PinScout's interface runs in Chrome's side panel so a scan, which checks many pincodes one after another, keeps running while the user looks at the store page. A popup would close as soon as the user clicks the page and stop the scan.
+
+scripting:
+PinScout runs a small script inside the product page of a supported store to call that store's own delivery-check service for each pincode the user asked to scan, using the user's existing session, exactly like typing the pincode into the store's "check delivery" box. It also injects the optional "Help add a new store" recorder into the tab the user chooses, only after the user presses Start.
+
+Host permission use:
+Access to amazon.in, flipkart.com, myntra.com, croma.com, reliancedigital.in and blinkit.com is needed to read the product on the open page and run that store's delivery check from inside the page. These are the only stores PinScout supports, and no other site is accessed by default. The optional permission for other https sites is never granted at install; it is requested for one site at a time, through Chrome's own prompt, only when the user presses "Allow access" in the "Help add a new store" recorder on a store PinScout does not support yet.
+
+
+REMOTE CODE
+-----------
+Select: "No, I am not using remote code"
+(If the box still asks for a justification, paste this:)
+PinScout does not use remote code. All JavaScript is included in the extension package. Scripts injected into store pages come from files inside the package; the extension only fetches data (JSON delivery answers) from the store the user is on, never code.
+
+
+DATA USAGE (checkboxes)
+-----------------------
+Tick: Website content
+Leave unticked: everything else (Personally identifiable information, Health, Financial and payment, Authentication, Personal communications, Location, Web history, User activity)
+
+Tick all three certifications at the bottom:
+[x] I do not sell or transfer user data to third parties, outside of the approved use cases
+[x] I do not use or transfer user data for purposes that are unrelated to my item's single purpose
+[x] I do not use or transfer user data to determine creditworthiness or for lending purposes
+
+Privacy policy URL: the public link where you hosted privacy-policy.html

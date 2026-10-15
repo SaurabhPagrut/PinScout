@@ -1,0 +1,59 @@
+PinScout Privacy Policy
+
+Last updated: 3 October 2026
+
+PinScout is a browser extension that checks whether a product on an Indian shopping site can be delivered to a pincode, starting with your pincode and moving outward to nearby areas, your state and the rest of India. This policy explains what the extension touches and where that information goes.
+
+The short version
+
+• PinScout has no server. It does not collect, sell or share your data, and the developer never receives anything unless you choose to email a recording yourself.
+
+• No analytics, advertising or tracking code is included.
+
+• Delivery checks are sent only to the shopping site you are already on, the same way that site's own "check pincode" box would send them.
+
+Delivery checks on supported stores
+
+When you start a scan on a product page (Amazon.in, Flipkart, Myntra, Croma, Reliance Digital or Blinkit), PinScout runs a small script inside that page. The script calls the store's own delivery-check service for each pincode in the scan, using the session you already have with that store (its cookies and page data), and reads back whether the product is deliverable. These requests go directly from your browser to the store. PinScout reads only what it needs for the check (for example the product id and the delivery answer) and does not read or keep your orders, addresses, payment details or account information.
+
+Some stores remember the last pincode you checked. On those stores a scan can change the delivery pincode shown on the site; PinScout records the original pincode so it can put it back when the scan ends (on Amazon this saved pincode is kept in the extension's local storage until it has been restored).
+
+Information stored on your device
+
+• Your home pincode, so you don't have to type it again.
+
+• For Amazon, the pincode to restore after a scan, until it has been restored.
+
+This is kept in the browser's extension storage on your device only. Uninstalling PinScout removes it.
+
+"Help add a new store" recorder
+
+The recorder runs only when you press Start and stops when you press Stop. While it runs on the tab you chose, it records the network requests that page makes (addresses, methods, headers and short response excerpts) so a developer can see how that store checks delivery. Before anything is shown to you, PinScout masks values that look like secrets or personal data, such as tokens, cookies, keys, signatures, names, addresses, phone numbers and email addresses.
+
+The recording stays in the extension's window. Nothing is uploaded. If you press "Send by email", PinScout copies the recording to your clipboard and opens a draft in your own email app addressed to the developer; it is only sent if you paste it in and send the email yourself. Please read the recording before sending it.
+
+To record a store that PinScout doesn't support yet, the browser will ask you to allow access to that one site. You can remove that access at any time from the browser's extension settings.
+
+Permissions
+
+• scripting: runs the delivery check and the recorder inside the store page.
+
+• storage: remembers your home pincode on your device.
+
+• sidePanel: shows PinScout in the browser's side panel so a scan keeps running while you use the page.
+
+• Access to amazon.in, flipkart.com, myntra.com, croma.com, reliancedigital.in and blinkit.com: needed to run the check on those stores' product pages.
+
+• Optional access to other sites: requested one site at a time, only when you use the recorder on a store PinScout doesn't support yet.
+
+Children
+
+PinScout is not directed at children and does not knowingly collect information from anyone.
+
+Changes
+
+If this policy changes, the updated version will be posted at this address with a new date.
+
+Contact
+
+Questions: getsaurabhpagrut@gmail.com

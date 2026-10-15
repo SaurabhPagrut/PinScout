@@ -1,0 +1,70 @@
+[
+ {
+  "id": "flipkart",
+  "name": "Flipkart",
+  "hosts": [
+   "flipkart.com"
+  ]
+ },
+ {
+  "id": "amazon",
+  "name": "Amazon",
+  "hosts": [
+   "amazon.in"
+  ],
+  "experimental": true,
+  "minDelayMs": 1500
+ },
+ {
+  "id": "myntra",
+  "name": "Myntra",
+  "hosts": [
+   "myntra.com"
+  ],
+  "experimental": true
+ },
+ {
+  "id": "croma",
+  "name": "Croma",
+  "hosts": [
+   "croma.com"
+  ]
+ },
+ {
+  "id": "jiomart",
+  "name": "JioMart",
+  "hosts": [
+   "jiomart.com"
+  ]
+ },
+ {
+  "id": "reliancedigital",
+  "name": "Reliance Digital",
+  "hosts": [
+   "reliancedigital.in"
+  ],
+  "experimental": true
+ },
+ {
+  "id": "zepto",
+  "name": "Zepto",
+  "hosts": [
+   "zepto.com"
+  ]
+ },
+ {
+  "id": "blinkit",
+  "name": "Blinkit",
+  "hosts": [
+   "blinkit.com"
+  ],
+  "experimental": true
+ },
+ {
+  "id": "instamart",
+  "name": "Swiggy Instamart",
+  "hosts": [
+   "swiggy.com"
+  ]
+ }
+]
