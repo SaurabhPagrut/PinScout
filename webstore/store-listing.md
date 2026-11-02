@@ -71,7 +71,7 @@ Feedback: getsaurabhpagrut@gmail.com
 | Small promo tile | `small-promo-tile-440x280.png` | 440×280 |
 | Marquee promo tile | `marquee-promo-tile-1400x560.png` | 1400×560 |
 
-The panel in every screenshot is the real PinScout panel rendered from the extension. The scan results are an illustrative example (pincode 560001, Bengaluru) and the store page beside it is a neutral placeholder, so no store's branding appears in your listing.
+All of these except the store icon are made by `npm run screenshots` (`scripts/screenshots.js`), from the real side panel: run it after any visible change to the panel. The panel in every screenshot is the real PinScout panel rendered from the extension. The scan results are an illustrative example (pincode 560001, Bengaluru) and the store page beside it is a neutral placeholder, so no store's branding appears in your listing.
 
 ## Global assets (other fields in that section)
 - **Global promo video**: optional. A 20 to 30 second screen recording on YouTube (open a product, type pincode, watch it find one) helps a lot. Leave empty if you don't have one yet.

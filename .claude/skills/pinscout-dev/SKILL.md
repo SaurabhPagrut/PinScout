@@ -47,6 +47,12 @@ It rebuilds the website first when its sources are newer, serves it with the rea
 
 The panel runs outside the extension with a stand-in `chrome.*` (a product tab at `--url`, storage in memory, every check answers "not deliverable"): it shows layout and text, not real store checks. For real checks, load `dist/chrome/pinscout-chrome-<version>/` unpacked.
 
+## Store images: `scripts/screenshots.js`
+`npm run screenshots` (or `node scripts/screenshots.js 1 5 marquee`, `--out .check/shots/store` to compare first) remakes
+the five 1280×800 screenshots and both promo tiles in `webstore/listing-images/` from the real side panel on a stand-in
+`chrome.*` whose store answers "not deliverable" until 560003. Run it after any visible change to the panel; the
+headlines on the left follow the same copy rules as the listing (true to the code, no store names).
+
 ## Builds
 - `npm run build`: every browser into `dist/<browser>/` (older zips kept). Refuses if `package.json` and `extension/manifest.json` versions differ.
 - `npm run lint:firefox`: must be 0 errors (the 4 `sidePanel` warnings are expected; the code checks for it first).

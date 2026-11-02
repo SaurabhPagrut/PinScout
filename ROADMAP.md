@@ -36,7 +36,7 @@ Goal: the repo explains itself, and every change is checked the same way.
 - [x] `CHANGELOG.md`, one entry per version (1.0.0 to 1.0.3, and Unreleased); the Chrome guide points to it.
 - [x] One privacy policy source: `PRIVACY.md`, built into the website by `npm run site`.
 - [x] A root `package.json`: `npm test`, `npm run build`, `npm run site`, `npm run lint:firefox`.
-- [ ] More scripts as they come: `lint`, `screenshots`, `serve`.
+- [x] `npm run lint`, `npm run screenshots`, `npm run plan`, `npm run browse`.
 - [x] Fast dev tools *(from Bracely)*, described in the `pinscout-dev` skill (`.claude/skills/pinscout-dev/SKILL.md`):
       `tests/run.js` (parallel, one line per file, only failures shown, logs in `.check/`, `--changed`),
       `scripts/plan.js` (what a scan would check for a pincode), `scripts/browse.js` (the website and the side panel in a
@@ -116,9 +116,9 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 
 ## Phase 5: store listing assets as scripts *(from Bracel)*
 
-- [ ] `scripts/screenshots.mjs`: the five 1280×800 screenshots with their caption bars, made from the fixtures (Phase
+- [x] `scripts/screenshots.js` (`npm run screenshots`): the five 1280×800 screenshots with their caption bars, made from the fixtures (Phase
       4), so they can be redone after any UI change without real addresses on screen.
-- [ ] Promo tiles from the same script (440×280, 1400×560).
+- [x] Promo tiles from the same script (440×280, 1400×560).
 - [ ] Optional: a short demo video and GIF (`npm run video`, `npm run gif`) for YouTube and Product Hunt.
 
 ## Phase 6: more stores and being found *(from Bracel)*
