@@ -26,8 +26,8 @@ something that already works there.
       `/privacy`; the Chrome dashboard's privacy policy URL points there.
 - [x] 1.0.3 uploaded to the Chrome Web Store (2 Nov 2026), with **Location** ticked on the privacy tab. Until it's
       reviewed, the public listing still shows 1.0.1.
-- [ ] **Next:** make the experimental adapters reliable (Phase 4), the demo video and GIF (Phase 5), make the repo
-      public, then Firefox (Phase 6).
+- [ ] **Next:** recorded answers to move the experimental adapters to working (Phase 4), the video on YouTube
+      (Phase 5), then Firefox (Phase 6).
 
 ## Phase 1: project hygiene *(from Bracel)*
 
