@@ -2,6 +2,10 @@
 
 Finds where a product can be delivered by scouting outward from your pincode: your pincode, then nearby, then the rest of your state, then all of India. Stops at the first place it's available.
 
+- **Install:** [PinScout on the Chrome Web Store](https://chromewebstore.google.com/detail/pinscout-pincode-delivery/oicfbaoamapgdhailjaaokgkdolalbco) (also works in Edge, Brave, Vivaldi, Arc and other Chromium browsers that install from it).
+- **Website:** https://pinscout.saurabhpagrut.in, with a live "Try the search plan" demo and the [privacy policy](https://pinscout.saurabhpagrut.in/privacy).
+- Free, no account, no server, no tracking. Not affiliated with any store.
+
 **The browser extension in `extension/` is the product.** A browser session works better than a server for these stores, so the original Go backend and Vue frontend skeleton was never used; it was removed in November 2026.
 
 ## Stores
@@ -42,7 +46,7 @@ Everything else (finding the store for a tab, standard verdicts, stopping when a
 
 ## Using the extension
 
-Open a Flipkart product page, click the PinScout icon (opens a side panel), type your pincode and press **Enter** (or click **Find availability**).
+Open a product page on a supported store (see **Stores** above), click the PinScout icon (opens a side panel), type your pincode and press **Enter** (or click **Find availability**). Keep the panel open while it checks.
 
 Search order, stopping at the first pincode where the product is deliverable:
 1. **Your pincode**
@@ -58,7 +62,7 @@ The Find/Stop buttons stay pinned at the top of the panel, and the log only auto
 
 Safety: ~1s randomised delay between requests (a store can ask for slower with `minDelayMs` in `stores.json`), doubled after each error in a row; a check that gets no answer in 20s counts as an error, and an errored pincode is retried once before moving on. The scan stops on HTTP 429/403/401, after 3 failed pincodes in a row, if you navigate the product tab away, or when you press Stop (even mid-request).
 
-Install: `chrome://extensions` -> Developer mode -> Load unpacked -> select the `extension` folder (Chrome 114+).
+Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/pinscout-pincode-delivery/oicfbaoamapgdhailjaaokgkdolalbco). For development: `npm run build`, then `chrome://extensions` -> Developer mode -> Load unpacked -> `dist/chrome/pinscout-chrome-<version>/` (or the `extension` folder itself; Chrome 114+). Tests: `npm test`.
 
 ### Pincode dataset
 This build ships with the **full dataset**: `extension/data/pincodes.json` – 19,586 unique pincodes, 36 states/UTs, 97% with usable coordinates – built from the India Post "All India Pincode Directory" (data.gov.in). `pincodes.seed.json` is a 70-pincode starter list used only as a fallback if `pincodes.json` is missing.

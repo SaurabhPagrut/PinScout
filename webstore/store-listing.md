@@ -1,4 +1,4 @@
-# PinScout – Chrome Web Store listing (v1.0.2)
+# PinScout – Chrome Web Store listing (v1.0.3)
 
 Upload: `dist/chrome/pinscout-chrome-<version>.zip` (`npm run build`). Images: `listing-images/`.
 

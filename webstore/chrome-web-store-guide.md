@@ -33,7 +33,8 @@ Check whether the product on the open shopping page can be delivered to a pincod
 
 **Data usage** (what to tick):
 - Tick **Website content**: the extension reads the product and the delivery answer on the store page. (Required to be honest about the in-page checks and the recorder.)
-- Leave everything else unticked (personally identifiable info, health, financial, authentication, personal communications, location, web history, user activity). The pincode the user types is sent only to the store they're on, as the store's own check box would.
+- Tick **Location**: pincodes are regions. Each check sends one to the store the user is on, as the store's own check box would, and the home pincode is kept on the device. (Ticked since 1.0.3; `privacy-practices-tab.txt` has the exact answers, and the Firefox build declares the same.)
+- Leave everything else unticked (personally identifiable info, health, financial, authentication, personal communications, web history, user activity).
 - Tick all three certifications: not sold to third parties, not used for unrelated purposes, not used for creditworthiness or lending.
 
 ## 4. Images to make

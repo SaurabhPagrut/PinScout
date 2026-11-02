@@ -22,7 +22,12 @@ something that already works there.
 - [x] Website and privacy policy built (2 Nov 2026), for https://pinscout.saurabhpagrut.in (Cloudflare Pages project `pinscouts`,
       `PUBLISHING.md`).
 - [x] One build per browser (`npm run build` → `dist/<browser>/`), 1.0.3 with a Buy Me a Coffee link in the panel.
-- [ ] **Next (owner):** deploy the site to Cloudflare Pages, upload 1.0.3, submit to Edge and Firefox (Phase 6).
+- [x] Website deployed on Cloudflare Pages (2 Nov 2026): https://pinscout.saurabhpagrut.in, with the privacy policy at
+      `/privacy`; the Chrome dashboard's privacy policy URL points there.
+- [x] 1.0.3 uploaded to the Chrome Web Store (2 Nov 2026), with **Location** ticked on the privacy tab. Until it's
+      reviewed, the public listing still shows 1.0.1.
+- [ ] **Next:** make the experimental adapters reliable (Phase 4), the demo video and GIF (Phase 5), the "Add a store"
+      guide on the site, make the repo public, then Firefox (Phase 6).
 
 ## Phase 1: project hygiene *(from Bracel)*
 
@@ -57,13 +62,14 @@ Goal: a public home for PinScout, with the privacy policy on it.
 
 - [x] `site/` plus `npm run site` → `dist/site/`: landing page, About (`site/about.md`), privacy (from `PRIVACY.md`),
       404. No analytics. Buy Me a Coffee button.
-- [ ] Deploy on Cloudflare Pages as `pinscouts` (pinscouts.pages.dev; `pinscout` was taken), then add `pinscout.saurabhpagrut.in` (owner).
+- [x] Deploy on Cloudflare Pages as `pinscouts` (pinscouts.pages.dev; `pinscout` was taken), then add `pinscout.saurabhpagrut.in` (owner).
 - [x] Landing page: what it does, a screenshot, the stores (read from `extension/data/stores.json`), "Add to Chrome",
       and the India Post data credit.
 - [x] A **live demo** on the landing page ("Try the search plan"): type a pincode and see the tiers it would check,
       from the extension's own `planner.js` and `pincodes.json`, in the browser (`site/demo.js`).
-- [ ] Point the Chrome dashboard's privacy policy URL at the new page.
-- [ ] Link the listing from the README.
+- [x] Point the Chrome dashboard's privacy policy URL at the new page.
+- [x] Link the listing and the website from the README.
+- [ ] An "Add a store" guide on the site: how to record a store with "Help add a new store" and send it.
 
 ## Phase 3: one build per browser *(from Bracel)*
 
@@ -79,8 +85,8 @@ Goal: `npm run build` makes every store's package from one source tree. It repla
       `data_collection_permissions: { required: ["none"] }` (required for new add-ons since Nov 2025). The panel
       should use Firefox's own `sidebar_action` rather than the window fallback. Check `scripting.executeScript` with
       `world: "MAIN"` in Firefox. `web-ext lint` must show 0 errors.
-- [ ] **Safari:** the unpacked folder for Apple's `safari-web-extension-converter`. This needs Xcode and the Apple
-      Developer Program (US$99 a year), so it's for later.
+- Skipped: **Safari** (Apple's `safari-web-extension-converter` needs Xcode and the Apple Developer Program, US$99 a
+  year). Decided 2 Nov 2026; the window fallback in the code stays.
 - [ ] A `--test` build for the end-to-end tests (see Phase 4).
 - [ ] Not separate stores: Brave, Vivaldi, Arc and Yandex install from the Chrome Web Store. Say so on the site.
 
@@ -119,12 +125,12 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 - [x] `scripts/screenshots.js` (`npm run screenshots`): the five 1280×800 screenshots with their caption bars, made from the fixtures (Phase
       4), so they can be redone after any UI change without real addresses on screen.
 - [x] Promo tiles from the same script (440×280, 1400×560).
-- [ ] Optional: a short demo video and GIF (`npm run video`, `npm run gif`) for YouTube and Product Hunt.
+- [ ] A demo video and GIFs (`npm run video`, `npm run gif`) for YouTube and Product Hunt, to Bracel's specifications.
 
 ## Phase 6: more stores and being found *(from Bracel)*
 
 - [ ] Edge Add-ons (needs a Microsoft Partner Center account, owner).
-- [ ] Firefox AMO (free account, owner), after trying the Firefox build in Firefox.
+- [ ] **Firefox AMO** (free account, owner), after trying the Firefox build in Firefox. Next store after Chrome.
 - [ ] Opera add-ons (owner).
 - [x] Listing text aimed at what people search for (e.g. "pincode checker", "delivery availability", "out of stock
       finder", "Flipkart pincode"). Don't use other products' trademarks as keywords. The store names may only appear
@@ -137,8 +143,7 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 
 - [ ] "Tell me when it's back": re-check a saved product and pincode now and then, on the user's device and within the
       same scan safety rules. This needs a decision on how often is polite to the store, and on alarms permission.
-- [ ] More stores, recorded by users with "Help add a new store" (a contribution guide on the site).
-- [ ] Hindi (and other languages) for the panel.
+- [ ] More stores, recorded by users with "Help add a new store" (the guide is in Phase 2).
 - [ ] Refresh the pincode dataset when India Post publishes a newer file. Track known missing pincodes like 560028.
 - [ ] Firefox for Android: only after trying the panel on a phone.
 
@@ -158,8 +163,10 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
   Argon). The website lists them instead.
 - 2 Nov 2026: Reliance Digital is listed as experimental in the README to match `stores.json` (PR #1).
 - 2 Nov 2026: release tooling, website and multi-browser builds follow BracelTheCat's setup.
+- 2 Nov 2026: no Safari build for now (needs Xcode and a paid Apple developer account).
+- 2 Nov 2026: no Hindi or other languages for the panel; English only.
+- 2 Nov 2026: the repo will be public, so users can read the source (as Bracel's is).
 
 ## Open questions
 
-- Make the repo public so users can read the source (as Bracel did)?
 - Firefox: is `sidebar_action` enough for a long-running scan, or does it need the window fallback too?
