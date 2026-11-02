@@ -10,7 +10,7 @@ something that already works there.
 
 ## Where things stand (2 Nov 2026)
 
-- [x] Chrome extension (MV3, side panel) in `extension/`, version 1.0.1: tiered pincode search (your pincode → nearby →
+- [x] Chrome extension (MV3, side panel) in `extension/`, version 1.0.3 built: tiered pincode search (your pincode → nearby →
       state → India), 19,586-pincode dataset from India Post, scan safety rules, "Help add a new store" recorder.
 - [x] Store adapters: Flipkart and Croma **working**; Myntra, Amazon, Blinkit and Reliance Digital **experimental**.
       JioMart, Zepto and Swiggy Instamart not built (signed requests).
@@ -21,21 +21,19 @@ something that already works there.
       https://chromewebstore.google.com/detail/pinscout-pincode-delivery/oicfbaoamapgdhailjaaokgkdolalbco
 - [x] Website and privacy policy (2 Nov 2026): https://pinscout.pages.dev, custom domain
       `pinscout.saurabhpagrut.in` to follow (`PUBLISHING.md`).
-- [ ] Open PR: #1, README lists Reliance Digital as experimental.
 - [x] One build per browser (`npm run build` → `dist/<browser>/`), 1.0.3 with a Buy Me a Coffee link in the panel.
-- [ ] **Next:** deploy the site to Cloudflare Pages, upload 1.0.3, submit to Edge and Firefox (Phase 6).
+- [ ] **Next (owner):** deploy the site to Cloudflare Pages, upload 1.0.3, submit to Edge and Firefox (Phase 6).
 
 ## Phase 1: project hygiene *(from Bracel)*
 
 Goal: the repo explains itself, and every change is checked the same way.
 
-- [ ] `CLAUDE.md`: what PinScout is, a table of the files in the repo, ground rules (every change is a branch and a
+- [x] `CLAUDE.md`: what PinScout is, a table of the files in the repo, ground rules (every change is a branch and a
       PR, never commit to `main`, "demo first" for visible changes), how to run tests.
-- [ ] `EXTENSION_GUIDELINES.md`: the rules PinScout keeps. The user's promise (no account, no server, no tracking), the
+- [x] `EXTENSION_GUIDELINES.md`: the rules PinScout keeps. The user's promise (no account, no server, no tracking), the
       permission model (six store hosts plus optional per-site access for the recorder only), scan safety limits,
       what the recorder masks, store policy, a release checklist.
-- [ ] `CHANGELOG.md`, one entry per version (1.0.0, 1.0.1 so far). Move "What changed in this build" out of
-      `webstore/chrome-web-store-guide.md`. That section says 1.0.0 while the top of the guide says 1.0.1.
+- [x] `CHANGELOG.md`, one entry per version (1.0.0 to 1.0.3, and Unreleased); the Chrome guide points to it.
 - [x] One privacy policy source: `PRIVACY.md`, built into the website by `npm run site`.
 - [x] A root `package.json`: `npm test`, `npm run build`, `npm run site`, `npm run lint:firefox`.
 - [ ] More scripts as they come: `lint`, `screenshots`, `serve`.
@@ -43,7 +41,7 @@ Goal: the repo explains itself, and every change is checked the same way.
       `tests/run.js` (parallel, one line per file, only failures shown, logs in `.check/`, `--changed`),
       `scripts/plan.js` (what a scan would check for a pincode), `scripts/browse.js` (the website and the side panel in a
       real browser: screenshots, sideways scroll, errors, outside requests).
-- [ ] `scripts/lint.mjs`: every script parses; no `eval`, `new Function` or remote code; network calls only in the
+- [x] `scripts/lint.mjs`: every script parses; no `eval`, `new Function` or remote code; network calls only in the
       store adapters and the recorder; manifest and `package.json` versions agree; `tools/sync_manifest.py` reports
       nothing missing.
 - [x] CI (GitHub Actions, `.github/workflows/ci.yml`) on every PR and push to `main`: unit tests, manifest in step with
@@ -76,9 +74,9 @@ Goal: `npm run build` makes every store's package from one source tree. It repla
 - [x] `scripts/build.mjs` → `dist/<browser>/pinscout-<browser>-<version>/` plus a zip (older zips kept), and `dist/README.md` saying which
       zip goes to which store. The zips hold only `extension/` (no tests or tools). No bundler or
       minifying, so the stores get readable source.
-- [ ] **Chrome, Edge, Opera:** same files. Edge has `chrome.sidePanel`. Opera may not, in which case it uses the
+- [x] **Chrome, Edge, Opera:** same files. Edge has `chrome.sidePanel`. Opera may not, in which case it uses the
       window fallback. Check it.
-- [ ] **Firefox:** a background script instead of the service worker, a `gecko` add-on id, and
+- [x] **Firefox:** a background script instead of the service worker, a `gecko` add-on id, and
       `data_collection_permissions: { required: ["none"] }` (required for new add-ons since Nov 2025). The panel
       should use Firefox's own `sidebar_action` rather than the window fallback. Check `scripting.executeScript` with
       `world: "MAIN"` in Firefox. `web-ext lint` must show 0 errors.
@@ -125,7 +123,7 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 - [ ] Edge Add-ons (needs a Microsoft Partner Center account, owner).
 - [ ] Firefox AMO (free account, owner), after trying the Firefox build in Firefox.
 - [ ] Opera add-ons (owner).
-- [ ] Listing text aimed at what people search for (e.g. "pincode checker", "delivery availability", "out of stock
+- [x] Listing text aimed at what people search for (e.g. "pincode checker", "delivery availability", "out of stock
       finder", "Flipkart pincode"). Don't use other products' trademarks as keywords. The store names may only appear
       where they describe what PinScout works with.
 - [ ] First honest reviews from friends and colleagues. No paid or swapped reviews (store policy).
@@ -158,6 +156,5 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 
 ## Open questions
 
-- Where the website lives: a subdomain next to Bracel's (`pinscout.saurabhpagrut.in`), or GitHub Pages?
 - Make the repo public so users can read the source (as Bracel did)?
 - Firefox: is `sidebar_action` enough for a long-running scan, or does it need the window fallback too?

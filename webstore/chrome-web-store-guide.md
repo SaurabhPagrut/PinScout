@@ -53,18 +53,4 @@ Tips: set the Chrome window to 1280×800 before capturing (or capture larger and
 
 ## 5. What changed in each build
 
-### 1.0.3
-- A small "pinscout.pages.dev · Buy me a coffee" line at the bottom of the panel. Both are plain links that open in a new tab.
-- Privacy policy now lives at https://pinscout.pages.dev/privacy, with a paragraph on the coffee link.
-- No change to how checks work, and no new permissions.
-- Privacy tab: also tick **Location** (pincodes are regions). See `privacy-practices-tab.txt`.
-
-### 1.0.2
-- New store title and summary (they come from the zip): "PinScout: Out of Stock & Pincode Delivery Finder India", and a summary that leads with "Out of stock or not deliverable to your pincode?".
-- New description (paste from `store-listing.md`; it can also be changed in the dashboard without a new upload): names the supported stores, says which are experimental, and says that the original pincode is restored only on Amazon.
-- No code changes.
-
-### 1.0.0 and 1.0.1
-- Host permissions now cover only the six stores PinScout can check. JioMart, Zepto and Swiggy Instamart stay in the catalogue but have no checker yet, so access to them is asked for only if you record them.
-- Safari: the side-panel call is skipped where it doesn't exist, and the toolbar icon opens PinScout in its own small window instead. Chrome behaves as before.
-- The upload zip has no tests or tools folders.
+See `CHANGELOG.md`. For a release, also paste its store-facing notes (permissions, privacy tab) into the dashboard.
