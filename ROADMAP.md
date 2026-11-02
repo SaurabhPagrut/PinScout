@@ -172,7 +172,7 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 - 2 Nov 2026: release tooling, website and multi-browser builds follow BracelTheCat's setup.
 - 2 Nov 2026: no Safari build for now (needs Xcode and a paid Apple developer account).
 - 2 Nov 2026: no Hindi or other languages for the panel; English only.
-- 2 Nov 2026: the repo will be public, so users can read the source (as Bracel's is).
+- 2 Nov 2026: the repo is public, so users can read the source (as Bracel's is), under the MIT licence (`LICENSE`).
 
 ## Open questions
 
