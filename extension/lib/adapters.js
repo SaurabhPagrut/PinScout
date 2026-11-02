@@ -81,9 +81,7 @@
     };
   }
 
-  const has = (id) => impl.has(id);
   const implemented = () => root.Stores.all().filter((s) => impl.has(s.id));
-  const pending = () => root.Stores.all().filter((s) => !impl.has(s.id));
 
-  root.Adapters = { register, forUrl, has, implemented, pending, interpret, runInPage };
+  root.Adapters = { register, forUrl, implemented, interpret, runInPage };
 })(typeof self !== "undefined" ? self : this);

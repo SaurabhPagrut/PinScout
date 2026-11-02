@@ -40,7 +40,7 @@ function pick() {
   if (!flag("--changed")) return ALL;
   const ch = changedFiles(); if (!ch) { console.log("can't tell what changed (no origin/main?): running everything"); return ALL; }
   /* docs, store texts, the website, dev scripts, CI and editor config don't change what the tests test */
-  const code = ch.filter((f) => !/\.(md|txt)$/.test(f) && !/^(webstore|site|scripts|graphify-out|\.claude|\.github|backend|frontend)\//.test(f)
+  const code = ch.filter((f) => !/\.(md|txt)$/.test(f) && !/^(webstore|site|scripts|graphify-out|\.claude|\.github)\//.test(f)
     && !["tests/run.js", ".gitignore", "package.json", "PRIVACY.md"].includes(f));
   if (!code.length) { console.log("nothing the tests read changed: no tests to run"); return []; }
   const map = Object.fromEntries(ALL.map((t) => [t, reads(t)]));

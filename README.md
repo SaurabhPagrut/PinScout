@@ -2,7 +2,7 @@
 
 Finds where a product can be delivered by scouting outward from your pincode: your pincode, then nearby, then the rest of your state, then all of India. Stops at the first place it's available.
 
-**The Chrome extension in `extension/` is the product.** The Go backend and Vue frontend folders are the original skeleton; the extension does not use them (a browser session works better than a server for these stores).
+**The browser extension in `extension/` is the product.** A browser session works better than a server for these stores, so the original Go backend and Vue frontend skeleton was never used; it was removed in November 2026.
 
 ## Stores
 | Store | Status |

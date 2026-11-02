@@ -51,7 +51,7 @@ Goal: the repo explains itself, and every change is checked the same way.
       uploaded as artifacts.
 - [x] Dependabot (`.github/dependabot.yml`): weekly, for GitHub Actions and root npm.
 - [ ] Branch protection on `main`: require the CI check to pass before merging (owner, GitHub settings).
-- [ ] Decide what happens to the unused Go backend and Vue frontend (see Open questions).
+- [x] Removed the unused Go backend and Vue frontend skeleton, and four helpers nothing called (2 Nov 2026).
 
 ## Phase 2: website and privacy page *(from Bracel)*
 
@@ -74,7 +74,7 @@ Goal: `npm run build` makes every store's package from one source tree. It repla
 `pinscout-chrome-webstore-<version>.zip`.
 
 - [x] `scripts/build.mjs` → `dist/<browser>/pinscout-<browser>-<version>/` plus a zip (older zips kept), and `dist/README.md` saying which
-      zip goes to which store. The zips hold only `extension/` (no tests, tools, backend or frontend). No bundler or
+      zip goes to which store. The zips hold only `extension/` (no tests or tools). No bundler or
       minifying, so the stores get readable source.
 - [ ] **Chrome, Edge, Opera:** same files. Edge has `chrome.sidePanel`. Opera may not, in which case it uses the
       window fallback. Check it.
@@ -143,8 +143,9 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 
 ## Decisions
 
-- **The Chrome extension is the product.** A browser session works better than a server for these stores, because
-  checks run inside the store's page using the user's own session (README).
+- **The browser extension is the product.** A browser session works better than a server for these stores, because
+  checks run inside the store's page using the user's own session (README). The unused Go backend and Vue frontend
+  skeleton was removed on 2 Nov 2026.
 - **Permissions:** host access only for stores with a working or experimental checker. Any other site is asked for one
   site at a time, only from the recorder (`webstore/privacy-practices-tab.txt`).
 - **Side panel, not a popup.** A popup closes as soon as you click the page and kills the scan. Where there's no side
@@ -157,8 +158,6 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 
 ## Open questions
 
-- The Go backend and Vue frontend are the original skeleton and the extension doesn't use them. Delete them, move them
-  to an `archive/` branch, or keep them for a possible web version?
 - Where the website lives: a subdomain next to Bracel's (`pinscout.saurabhpagrut.in`), or GitHub Pages?
 - Make the repo public so users can read the source (as Bracel did)?
 - Firefox: is `sidebar_action` enough for a long-running scan, or does it need the window fallback too?

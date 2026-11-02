@@ -67,4 +67,4 @@ Tips: set the Chrome window to 1280×800 before capturing (or capture larger and
 ### 1.0.0 and 1.0.1
 - Host permissions now cover only the six stores PinScout can check. JioMart, Zepto and Swiggy Instamart stay in the catalogue but have no checker yet, so access to them is asked for only if you record them.
 - Safari: the side-panel call is skipped where it doesn't exist, and the toolbar icon opens PinScout in its own small window instead. Chrome behaves as before.
-- The upload zip has no tests, tools, backend or frontend folders.
+- The upload zip has no tests or tools folders.
