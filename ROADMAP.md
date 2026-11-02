@@ -19,8 +19,8 @@ something that already works there.
       answers, screenshots, promo tiles).
 - [x] **Live on the Chrome Web Store** (by 2 Nov 2026):
       https://chromewebstore.google.com/detail/pinscout-pincode-delivery/oicfbaoamapgdhailjaaokgkdolalbco
-- [x] Website and privacy policy (2 Nov 2026): https://pinscouts.pages.dev, custom domain
-      `pinscout.saurabhpagrut.in` to follow (`PUBLISHING.md`).
+- [x] Website and privacy policy built (2 Nov 2026), for https://pinscout.saurabhpagrut.in (Cloudflare Pages project `pinscouts`,
+      `PUBLISHING.md`).
 - [x] One build per browser (`npm run build` → `dist/<browser>/`), 1.0.3 with a Buy Me a Coffee link in the panel.
 - [ ] **Next (owner):** deploy the site to Cloudflare Pages, upload 1.0.3, submit to Edge and Firefox (Phase 6).
 

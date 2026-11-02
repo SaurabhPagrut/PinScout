@@ -63,8 +63,13 @@ for (const f of [...walk(join(ROOT, "extension")), ...walk(join(ROOT, "site"))].
   for (const m of src.matchAll(/@import\s+(?:url\()?["']?https?:/gi)) fail(f, lineOf(src, m.index), "CSS @import from another site");
 }
 
-/* 5. no links to sites that aren't ours: pinscout.pages.dev belongs to another Cloudflare project (ours is pinscouts) */
+/* 5. no links to sites that aren't ours: pinscout.pages.dev belongs to another Cloudflare project (ours is pinscouts).
+   And people see https://pinscout.saurabhpagrut.in: the extension, the website and the store texts never link a pages.dev address. */
 const NOT_OURS = ["pinscout.pages.dev"];
+for (const f of [...walk(join(ROOT, "extension")), ...walk(join(ROOT, "site")), ...walk(join(ROOT, "webstore")), join(ROOT, "PRIVACY.md")].filter((f) => /\.(html|js|json|md|txt)$/.test(f))) {
+  const src = readFileSync(f, "utf8");
+  for (const m of src.matchAll(/[\w-]+\.pages\.dev/g)) fail(f, lineOf(src, m.index), `links to ${m[0]}; people should see https://pinscout.saurabhpagrut.in`);
+}
 for (const f of [...walk(join(ROOT, "extension")), ...walk(join(ROOT, "site")), ...walk(join(ROOT, "webstore")), ...walk(join(ROOT, "scripts")),
   ...["PRIVACY.md", "README.md", "PUBLISHING.md", "CHANGELOG.md", "CLAUDE.md"].map((f) => join(ROOT, f))].filter((f) => existsSync(f) && /\.(html|js|mjs|json|md|txt)$/.test(f) && !f.endsWith("lint.mjs"))) {
   const src = readFileSync(f, "utf8");

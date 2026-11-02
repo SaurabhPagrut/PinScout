@@ -3,7 +3,7 @@
 A browser extension that finds where a product can be delivered in India: it checks the user's pincode, then nearby
 pincodes, the rest of their state and the rest of India, using the store's own delivery check from inside the product
 page, and stops at the first place it's available. Live on the Chrome Web Store; website at
-https://pinscouts.pages.dev.
+https://pinscout.saurabhpagrut.in (Cloudflare Pages project `pinscouts`).
 
 **Before any work, load the `pinscout-dev` skill** (`.claude/skills/pinscout-dev/SKILL.md`): the fast commands for tests,
 the browser and scan plans, and the owner's house rules. The rules the extension keeps are in `EXTENSION_GUIDELINES.md`.

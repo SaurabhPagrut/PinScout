@@ -30,9 +30,12 @@ it prints.
    - If `saurabhpagrut.in` is a zone in this Cloudflare account (as for Bracel), Cloudflare adds the DNS record itself.
    - If its DNS is elsewhere, add `CNAME`, name `pinscout`, target `pinscouts.pages.dev` there.
    - Add the domain in the Pages project first: a CNAME alone gives a 522 error.
-5. Once https://pinscout.saurabhpagrut.in/privacy loads over HTTPS, update the privacy policy, homepage and support URLs
-   in the Chrome dashboard (`webstore/store-listing.md`), and the link in the panel footer
-   (`extension/sidepanel.html`) in the next release.
+5. Once https://pinscout.saurabhpagrut.in/privacy loads over HTTPS, set the privacy policy, homepage and support URLs in the Chrome
+   dashboard (`webstore/store-listing.md`). **Upload 1.0.3 only after that**: its panel footer links to
+   https://pinscout.saurabhpagrut.in.
+
+`https://pinscout.saurabhpagrut.in` is the address people see (panel, listing, privacy policy, links); `pinscouts.pages.dev` is only
+Cloudflare's address for the project (the name `pinscout` on pages.dev belongs to someone else).
 
 Every push to `main` redeploys; other branches get a preview at `<branch>.pinscouts.pages.dev`.
 
