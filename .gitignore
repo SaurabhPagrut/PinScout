@@ -12,3 +12,6 @@ __pycache__/
 .DS_Store
 .env
 .env.*
+
+# Built packages and website (npm run build, npm run site)
+dist/

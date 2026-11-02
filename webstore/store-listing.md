@@ -1,6 +1,6 @@
 # PinScout – Chrome Web Store listing (v1.0.2)
 
-Upload: `pinscout-chrome-webstore-1.0.2.zip`. Images: `listing-images/`.
+Upload: `dist/chrome/pinscout-chrome-<version>.zip` (`npm run build`). Images: `listing-images/`.
 
 ## Title from package (comes from the zip, 54 / 75 characters)
 PinScout: Out of Stock & Pincode Delivery Finder India
@@ -76,8 +76,8 @@ The panel in every screenshot is the real PinScout panel rendered from the exten
 ## Global assets (other fields in that section)
 - **Global promo video**: optional. A 20 to 30 second screen recording on YouTube (open a product, type pincode, watch it find one) helps a lot. Leave empty if you don't have one yet.
 - **Official URL**: leave unset unless you verify a website in Google Search Console.
-- **Homepage URL**: where you host the privacy policy (or a GitHub page for PinScout).
-- **Support URL**: the same homepage (an email address is not accepted here).
+- **Homepage URL**: https://pinscout.pages.dev (switch to https://pinscout.saurabhpagrut.in once the domain is active).
+- **Support URL**: https://pinscout.pages.dev/about (an email address is not accepted here).
 - **Mature content**: No.
 
 ## Getting people to use it (what actually moves installs)

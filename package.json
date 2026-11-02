@@ -1,0 +1,12 @@
+{
+  "name": "pinscout",
+  "version": "1.0.3",
+  "private": true,
+  "description": "PinScout: finds where an out-of-stock or undeliverable product can be delivered in India (browser extension)",
+  "scripts": {
+    "test": "node tests/planner.test.js && node tests/scanner.test.js && node tools/test_recorder_mask.js",
+    "build": "node scripts/build.mjs",
+    "site": "node scripts/site.mjs",
+    "lint:firefox": "npx --yes web-ext@8 lint -s dist/firefox/pinscout-firefox-$(node -p \"require('./package.json').version\")"
+  }
+}
