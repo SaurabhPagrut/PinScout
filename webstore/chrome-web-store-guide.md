@@ -1,13 +1,13 @@
 # PinScout on the Chrome Web Store
 
-Everything to paste into the Developer Dashboard for version 1.0.1. Upload file:
-`pinscout-chrome-webstore-1.0.1.zip` (manifest.json is at the root of the zip, which the store requires).
+Everything to paste into the Developer Dashboard for version 1.0.2. Upload file:
+`pinscout-chrome-webstore-1.0.2.zip` (manifest.json is at the root of the zip, which the store requires).
 
 ## 1. What you must do in the dashboard
 
 1. **Account**: in Settings, verify your contact email (the store blocks publishing until it is verified) and fill in the publisher name.
 2. **Host the privacy policy**: the store needs a public URL. Put `privacy-policy.html` on any free host (GitHub Pages, Google Sites, or a public Google Doc with the same text) and copy the link.
-3. **New item** → upload `pinscout-chrome-webstore-1.0.1.zip`.
+3. **Package** tab of the existing PinScout item → **Upload new package** → `pinscout-chrome-webstore-1.0.2.zip`.
 4. **Store listing** tab: paste the texts in section 2, choose category and language, upload the icon, screenshots and small promo tile (section 4).
 5. **Privacy** tab: paste the single purpose and each permission justification (section 3), tick the data-usage boxes as listed, tick the three certification boxes, paste the privacy policy URL.
 6. **Distribution** tab: Public (or Unlisted if you want to test with a link first), regions: India (or all regions).
@@ -53,7 +53,12 @@ Tips: set the Chrome window to 1280×800 before capturing (or capture larger and
 
 ## 5. What changed in this build
 
-- Version 1.0.0.
+### 1.0.2
+- New store title and summary (they come from the zip): "PinScout: Out of Stock & Pincode Delivery Finder India", and a summary that leads with "Out of stock or not deliverable to your pincode?".
+- New description (paste from `store-listing.md`; it can also be changed in the dashboard without a new upload): names the supported stores, says which are experimental, and says that the original pincode is restored only on Amazon.
+- No code changes.
+
+### 1.0.0 and 1.0.1
 - Host permissions now cover only the six stores PinScout can check. JioMart, Zepto and Swiggy Instamart stay in the catalogue but have no checker yet, so access to them is asked for only if you record them.
 - Safari: the side-panel call is skipped where it doesn't exist, and the toolbar icon opens PinScout in its own small window instead. Chrome behaves as before.
 - The upload zip has no tests, tools, backend or frontend folders.
