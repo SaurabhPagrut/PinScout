@@ -7,6 +7,7 @@
 //   node scripts/screenshots.js --out .check/shots/store    somewhere else (to compare before replacing)
 // The product and the results are an illustrative example (pincode 560001, Bengaluru); the store page is a neutral
 // placeholder, so no store's branding appears in the listing. Run after any visible change to the panel.
+// scripts/video.js and scripts/gif.js film the same page (stub, page and the example are exported).
 const fs = require("fs"), path = require("path");
 const { playwright, chrome, serve } = require("./browse.js");
 const ROOT = path.join(__dirname, ".."), argv = process.argv.slice(2);
@@ -16,18 +17,57 @@ const only = argv.filter((a, i) => !a.startsWith("--") && argv[i - 1] !== "--out
 const PRODUCT = "Noise-cancelling Wireless Headphones (Black)", HOME = "560001", FOUND = "560003", ETA = "Delivery by Fri, 10 Oct";
 const STORE_URL = "https://www.flipkart.com/noise-cancelling-wireless-headphones/p/itm0000000000001?pid=ACCDEMO000000001";
 
-/* the panel's chrome.*: a product tab, storage in memory, and a store that answers per pincode; pacing sped up */
+/* the panel's chrome.*: a product tab, storage in memory, and a store that answers per pincode; pacing sped up
+   For film (scripts/video.js, gif.js), cfg.virtual gives the panel a clock of its own: timers, animation frames,
+   Date.now and performance.now stand still until the filming loop calls __tick(ms), so every frame is exact however
+   long a frame takes to save (Playwright's fake clock doesn't reach into the panel's frame). cfg.pace: the panel's own
+   pacing (1) or a part of it (0.5); cfg.answerMs: how long the store takes to answer; cfg.seed: a repeatable
+   Math.random, so the scan's pauses are the same on every run. */
 function stub(cfg) {
   if (!/sidepanel\.html/.test(location.pathname)) return;
   const tab = { id: 7, windowId: 1, index: 0, active: true, status: "complete", url: cfg.url, title: "Product page" }, store = {};
   const ev = () => ({ addListener() {}, removeListener() {}, hasListener: () => false });
+  if (cfg.seed) {
+    let a = cfg.seed;
+    Math.random = () => { a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  }
   /* the scan waits ~1 s between checks: 30 ms here, so a picture doesn't take minutes (the 20 s check timeout is kept) */
-  const st = window.setTimeout; window.setTimeout = (fn, ms, ...a) => st(fn, ms >= 300 && ms <= 6000 ? 30 : ms, ...a);
+  const paced = (ms) => (ms >= 300 && ms <= 6000 ? (cfg.pace ? ms * cfg.pace : 30) : ms);
+  if (cfg.virtual) {
+    const realTimeout = window.setTimeout.bind(window), start = Date.parse("2026-10-08T10:00:00+05:30"), q = [];
+    let now = 0, ids = 1;
+    const add = (fn, ms, a, every) => { const id = ids++; q.push({ id, at: now + Math.max(0, +ms || 0), fn, a, every }); return id; };
+    const clear = (id) => { const k = q.findIndex((x) => x.id === id); if (k >= 0) q.splice(k, 1); };
+    window.setTimeout = (fn, ms, ...a) => add(fn, paced(+ms || 0), a);
+    window.setInterval = (fn, ms, ...a) => add(fn, Math.max(1, +ms || 0), a, Math.max(1, +ms || 0));
+    window.clearTimeout = window.clearInterval = clear;
+    window.requestAnimationFrame = (fn) => add(() => fn(now), 16, []);
+    window.cancelAnimationFrame = clear;
+    performance.now = () => now;
+    const RealDate = Date;
+    window.Date = class extends RealDate { constructor(...a) { if (a.length) super(...a); else super(start + now); } static now() { return start + now; } };
+    /* run every timer due in the next ms, in order, letting promises (and the store's answers) settle between them */
+    window.__tick = async (ms) => {
+      const end = now + ms;
+      for (;;) {
+        q.sort((x, y) => x.at - y.at || x.id - y.id);
+        const t = q[0];
+        if (!t || t.at > end) break;
+        q.shift(); now = Math.max(now, t.at);
+        if (t.every) { t.at += t.every; q.push(t); }
+        try { t.fn(...t.a); } catch (e) { realTimeout(() => { throw e; }); }
+        await new Promise((r) => realTimeout(r, 0));
+      }
+      now = end;
+      await new Promise((r) => realTimeout(r, 0));
+    };
+  } else if (cfg.pace !== 1) { const st = window.setTimeout; window.setTimeout = (fn, ms, ...a) => st(fn, paced(ms), ...a); }
   let n = 0;
   const answer = (pin) => {
     n++;
     if (cfg.hangAt && n >= cfg.hangAt) return new Promise(() => {});           // "still checking" for a mid-scan picture
-    return pin === cfg.found ? { ok: true, serviceable: true, title: cfg.product, eta: cfg.eta } : { ok: true, serviceable: false, title: cfg.product };
+    const r = pin === cfg.found ? { ok: true, serviceable: true, title: cfg.product, eta: cfg.eta } : { ok: true, serviceable: false, title: cfg.product };
+    return cfg.answerMs ? new Promise((res) => setTimeout(() => res(r), cfg.answerMs)) : r;
   };
   globalThis.chrome = {
     runtime: { getURL: (p) => "/extension/" + p.replace(/^\//, ""), id: "pinscout-stand-in", onMessage: ev() },
@@ -151,7 +191,9 @@ img{position:absolute;right:30px;top:30px;width:96px;height:96px;border-radius:2
 <body><div class="ring" style="right:-60px;top:-90px;width:300px;height:300px"></div><div class="ring" style="right:-20px;top:-50px;width:220px;height:220px"></div>
 <img src="${base}/extension/icons/icon128.png" alt=""><div class="t"><div class="n">PinScout</div><h1>Out of stock?<br><span class="g">Find where it isn’t.</span></h1><p>Delivery check across India’s pincodes</p></div></body></html>`;
 
-(async () => {
+module.exports = { stub, page, PRODUCT, HOME, FOUND, ETA, STORE_URL };
+
+if (require.main === module) (async () => {
   const want = (id) => !only.length || only.includes(id);
   fs.mkdirSync(OUT, { recursive: true });
   const { chromium } = playwright(), srv = await serve(), browser = await chromium.launch({ executablePath: chrome() });

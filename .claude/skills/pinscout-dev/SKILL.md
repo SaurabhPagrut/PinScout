@@ -53,6 +53,14 @@ the five 1280×800 screenshots and both promo tiles in `webstore/listing-images/
 `chrome.*` whose store answers "not deliverable" until 560003. Run it after any visible change to the panel; the
 headlines on the left follow the same copy rules as the listing (true to the code, no store names).
 
+## Video and GIFs: `scripts/video.js`, `scripts/gif.js`
+`npm run video` films the demo for YouTube into `dist/video/` (`pinscout-demo.webm`, 2560×1440, 60 fps, VP9; and
+`thumbnail.jpg`): title card, the real panel on the screenshots' page (types 560001, scans, the result, the range, the
+recorder), privacy and end cards. Frame by frame on Playwright's fake clock with a seeded `Math.random`, so runs are
+identical; `--still` writes one picture per scene for a quick look, `--only panel` one scene. `npm run gif` makes
+Product Hunt's `gallery-1270x760.gif` (must stay under 3 MB) and `icon-240.gif` into `dist/gif/` (installs `gifenc`
+into `.check/pw` once). Both follow BracelTheCat's `scripts/video.mjs` and `gif.mjs`. Re-run after visible panel changes.
+
 ## Builds
 - `npm run build`: every browser into `dist/<browser>/` (older zips kept). Refuses if `package.json` and `extension/manifest.json` versions differ.
 - `npm run lint:firefox`: must be 0 errors (the 4 `sidePanel` warnings are expected; the code checks for it first).
