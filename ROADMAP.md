@@ -133,7 +133,10 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 - [x] `scripts/screenshots.js` (`npm run screenshots`): the five 1280×800 screenshots with their caption bars, made from the fixtures (Phase
       4), so they can be redone after any UI change without real addresses on screen.
 - [x] Promo tiles from the same script (440×280, 1400×560).
-- [ ] A demo video and GIFs (`npm run video`, `npm run gif`) for YouTube and Product Hunt, to Bracel's specifications.
+- [x] A demo video and GIFs to Bracel's specifications, from the real panel on the screenshots' page:
+      `npm run video` → `dist/video/pinscout-demo.webm` (2560×1440, 60 fps, VP9, no sound) and `thumbnail.jpg`
+      (1280×720); `npm run gif` → `dist/gif/gallery-1270x760.gif` (under 3 MB) and `icon-240.gif` (Product Hunt).
+- [ ] Upload the video to YouTube (owner) and link it from the site and the Chrome listing.
 
 ## Phase 6: more stores and being found *(from Bracel)*
 
