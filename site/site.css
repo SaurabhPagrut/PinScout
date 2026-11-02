@@ -19,8 +19,10 @@ a { color: var(--accent); }
 .top nav { margin-left: auto; display: flex; align-items: center; gap: 16px; font-size: 14px; }
 .top nav a { color: var(--muted); text-decoration: none; }
 .top nav a:hover { color: var(--fg); }
-.top nav a.nav-coffee { color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; }
-.top nav a.nav-coffee:hover { border-color: var(--accent); }
+/* Buy Me a Coffee's own button colours: yellow, black text, black outline (no script, nothing loaded from them) */
+.btn.bmc, .top nav a.nav-coffee { background: #FFDD00; color: #000000; border: 1px solid #000000; }
+.btn.bmc:hover, .top nav a.nav-coffee:hover { background: #FFE433; color: #000000; }
+.top nav a.nav-coffee { border-radius: 999px; padding: 2px 10px; font-weight: 600; }
 .hero { padding: 72px 0 40px; }
 .hero h1 { font-size: clamp(30px, 5.5vw, 50px); line-height: 1.1; margin: 0 0 16px; letter-spacing: -.02em; max-width: 18ch;
   background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
