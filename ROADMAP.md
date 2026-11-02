@@ -94,7 +94,11 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
       change, throttled, a recommendation that disagrees, no serviceable field, not JSON), synthetic for now.
       `tools/make-fixture.js` turns a real answer into a masked fixture (`tests/fixtures/README.md`).
 - [ ] Recorded answers for Flipkart (available + not deliverable) to replace the synthetic ones (owner captures).
-- [ ] Fixtures for Croma, then the experimental adapters (`PENDING` in `tests/adapters.test.js`).
+- [x] Fixtures for Croma: 10 cases (single and listed assignments, quantity 0, another product's line first, no
+      promise, not JSON, 429, 500, not a product page), synthetic for now.
+- [ ] Recorded Croma answers (available + not deliverable): the adapter still *assumes* "no assignment" means not
+      deliverable.
+- [ ] Fixtures for the experimental adapters (`PENDING` in `tests/adapters.test.js`).
 - [x] **Offline adapter tests** (`tests/adapters.test.js`, in CI): the real adapter in a Node sandbox page, `fetch`
       answered from the fixture, the verdict compared (status, delivery date, stock, fatal).
 - [ ] **End-to-end test of the built extension**: load `dist/test`, open a saved Flipkart page, run a scan against the
