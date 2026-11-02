@@ -2,6 +2,7 @@
   "name": "pinscout",
   "version": "1.0.3",
   "private": true,
+  "license": "MIT",
   "description": "PinScout: finds where an out-of-stock or undeliverable product can be delivered in India (browser extension)",
   "scripts": {
     "test": "node scripts/lint.mjs && node tests/run.js",

@@ -101,3 +101,7 @@ Tiny drifting particles in the background react to the cursor. The animation pau
 - `tools/build_pincodes.py` – builds the pincode dataset from the India Post CSV
 - `tools/probe-page-state.js` – paste into the browser console to find where product data lives in a store page (for stores whose delivery check needs it)
 - `tools/sync_manifest.py` – keeps manifest permissions in step with `stores.json`
+
+## License
+
+MIT (see `LICENSE`). The pincode data is the Department of Posts' (India Post), via data.gov.in, under the Government Open Data Licence – India.
