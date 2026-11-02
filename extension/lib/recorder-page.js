@@ -579,7 +579,7 @@
       delete window.__pinscoutRecorder;
       return out;
     },
-    // masking helpers, exposed for tests/recorder-mask.test.js
-    _mask: { clean: clean, maskUrl: maskUrl, maskHeaders: maskHeaders, describe: describe, valueOf: valueOf, cleanAny: cleanAny, finalScrub: finalScrub },
+    // masking helpers, exposed for tests/recorder-mask.test.js and tools/make-fixture.js
+    _mask: { scrub: scrub, sensitiveKey: sensitiveKey, clean: clean, maskUrl: maskUrl, maskHeaders: maskHeaders, describe: describe, valueOf: valueOf, cleanAny: cleanAny, finalScrub: finalScrub },
   };
 })();
