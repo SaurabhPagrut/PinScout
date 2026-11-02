@@ -22,7 +22,7 @@ the browser and scan plans, and the owner's house rules. The rules the extension
 | `tests/` | `run.js` (the runner), `*.test.js`, `adapter-harness.js`, `fixtures/<store>/` (saved store answers) |
 | `scripts/` | `build.mjs` (every browser), `site.mjs` (website), `lint.mjs`, `plan.js`, `browse.js` |
 | `tools/` | `sync_manifest.py`, `build_pincodes.py`, `make-fixture.js`, `probe-page-state.js` |
-| `site/` | The website (Cloudflare Pages): landing page, `about.md`; `PRIVACY.md` becomes its privacy page |
+| `site/` | The website (Cloudflare Pages): landing page with the "Try the search plan" demo (`demo.js`, running the extension's `planner.js`), `about.md`; `PRIVACY.md` becomes its privacy page |
 | `webstore/` | Chrome Web Store texts, privacy-tab answers and listing images |
 | `ROADMAP.md` | The one roadmap: phases, decisions, open questions. Keep it updated as PRs open and merge |
 | `CHANGELOG.md` | What changed in each version |

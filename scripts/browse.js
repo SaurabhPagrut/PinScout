@@ -3,7 +3,7 @@
 //   node scripts/browse.js shot panel             --widths 420 --url "https://www.croma.com/p/1"   the side panel, on a pretend product tab
 //   node scripts/browse.js eval /about "document.title"                                            any expression (a Promise is awaited)
 //   node scripts/browse.js eval panel "document.querySelector('#retailer').textContent"
-// Options: --js "<code>" sets the page up first (type a pincode, press a button); --wait <ms> after load (default 600).
+// Options: --js "<code>" sets the page up first (type a pincode, press a button; await works); --wait <ms> after load (default 600).
 // Every check reports sideways scroll, page errors and console errors (a CSP block shows here), and requests that left
 // localhost: the website and the panel must make none. The website is rebuilt first when site/, PRIVACY.md or
 // stores.json are newer than dist/site/ and served with the CSP from site/_headers, like Cloudflare Pages.
@@ -40,7 +40,7 @@ function chrome() {
 /* the website is built from site/, PRIVACY.md, the store list and the images: rebuild when one is newer (otherwise this checks old pages) */
 function freshSite() {
   const mt = (f) => { try { return fs.statSync(path.join(ROOT, f)).mtimeMs; } catch { return 0; } }, built = mt("dist/site/index.html");
-  const src = spawnSync("git", ["ls-files", "site", "PRIVACY.md", "scripts/site.mjs", "extension/data/stores.json", "extension/icons", "webstore/listing-images"], { cwd: ROOT, encoding: "utf8" }).stdout.split("\n").filter(Boolean);
+  const src = spawnSync("git", ["ls-files", "--cached", "--others", "--exclude-standard", "site", "PRIVACY.md", "scripts/site.mjs", "extension/data/stores.json", "extension/data/pincodes.json", "extension/lib/planner.js", "extension/icons", "webstore/listing-images"], { cwd: ROOT, encoding: "utf8" }).stdout.split("\n").filter(Boolean);
   const newer = built ? src.filter((f) => mt(f) > built) : ["(no build)"];
   if (!newer.length) return;
   console.log(`${newer.slice(0, 3).join(", ")}${newer.length > 3 ? "…" : ""} newer than dist/site: building`);
@@ -98,7 +98,8 @@ function stub(url) {
     const resp = await pg.goto(srv.base + (isPanel ? "/extension/sidepanel.html" : target), { waitUntil: "load" });
     if (resp && resp.status() >= 400) console.log(`  ${target} answers ${resp.status()} (the 404 page)`);
     await pg.waitForTimeout(+val("--wait", 600));
-    if (val("--js")) { await pg.evaluate(async (e) => { await (0, eval)(e); }, val("--js")); await pg.waitForTimeout(300); }
+    /* --js may use await (it runs as the body of an async function) */
+    if (val("--js")) { await pg.evaluate(async (e) => { await (0, eval)(`(async () => {\n${e}\n})()`); }, val("--js")); await pg.waitForTimeout(300); }
     return { pg, ctx, errs, ext };
   }
   const tail = (errs, ext) => { const p = []; if (errs.length) { bad++; p.push(`ERRORS: ${[...new Set(errs)].join(" | ")}`); } if (ext.length) { bad++; p.push(`OUTSIDE REQUESTS: ${[...new Set(ext)].join(", ")}`); } return p.length ? " · " + p.join(" · ") : ""; };

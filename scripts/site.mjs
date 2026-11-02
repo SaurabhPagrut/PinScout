@@ -9,6 +9,10 @@ const COFFEE_URL = "https://buymeacoffee.com/saurabhpagrut";
 const out = "dist/site";
 rmSync(out, { recursive: true, force: true }); mkdirSync(`${out}/img`, { recursive: true });
 for (const f of ["site.css", "_headers"]) cpSync(`site/${f}`, `${out}/${f}`);
+/* the "Try the search plan" box: the extension's own planner and dataset, unchanged */
+mkdirSync(`${out}/js`); mkdirSync(`${out}/data`);
+cpSync("site/demo.js", `${out}/js/demo.js`); cpSync("extension/lib/planner.js", `${out}/js/planner.js`);
+cpSync("extension/data/pincodes.json", `${out}/data/pincodes.json`);
 for (const s of [32, 128]) cpSync(`extension/icons/icon${s}.png`, `${out}/img/icon${s}.png`);
 cpSync("webstore/listing-images/screenshot-1-find-where-it-is-available.png", `${out}/img/screenshot-1.png`);
 cpSync("webstore/listing-images/small-promo-tile-440x280.png", `${out}/img/promo.png`);

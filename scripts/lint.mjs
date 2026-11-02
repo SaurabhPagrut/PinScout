@@ -19,7 +19,7 @@ const code = (s) => s.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, " 
 const lineOf = (s, i) => s.slice(0, i).split("\n").length;
 
 /* 1. every script parses */
-const scripts = [...walk(join(ROOT, "extension")), ...walk(join(ROOT, "tests")), ...walk(join(ROOT, "scripts")), ...walk(join(ROOT, "tools"))].filter((f) => /\.(m?js)$/.test(f));
+const scripts = [...walk(join(ROOT, "extension")), ...walk(join(ROOT, "site")), ...walk(join(ROOT, "tests")), ...walk(join(ROOT, "scripts")), ...walk(join(ROOT, "tools"))].filter((f) => /\.(m?js)$/.test(f));
 for (const f of scripts) {
   try { execFileSync(process.execPath, ["--check", f], { stdio: "pipe" }); }
   catch (e) { fail(f, 0, `doesn't parse: ${String(e.stderr).split("\n").filter(Boolean).slice(0, 3).join(" ")}`); }
@@ -34,6 +34,11 @@ const BANNED = [
 const NET = /\bfetch\s*\(|\bXMLHttpRequest\b|\bWebSocket\b|\bsendBeacon\b|\bEventSource\b/g;
 const stores = JSON.parse(readFileSync(join(ROOT, "extension/data/stores.json"), "utf8"));
 const extJs = walk(join(ROOT, "extension")).filter((f) => f.endsWith(".js"));
+/* the website's own scripts keep the same code rules (no eval, no HTML from strings) */
+for (const f of walk(join(ROOT, "site")).filter((f) => f.endsWith(".js"))) {
+  const src = code(readFileSync(f, "utf8"));
+  for (const [re, what] of BANNED) { const m = re.exec(src); if (m) fail(f, lineOf(src, m.index), `uses ${what}`); }
+}
 for (const f of extJs) {
   const src = code(readFileSync(f, "utf8")), r = rel(f);
   for (const [re, what] of BANNED) { const m = re.exec(src); if (m) fail(f, lineOf(src, m.index), `uses ${what}`); }

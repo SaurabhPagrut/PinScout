@@ -60,9 +60,8 @@ Goal: a public home for PinScout, with the privacy policy on it.
 - [ ] Deploy on Cloudflare Pages as `pinscouts` (pinscouts.pages.dev; `pinscout` was taken), then add `pinscout.saurabhpagrut.in` (owner).
 - [x] Landing page: what it does, a screenshot, the stores (read from `extension/data/stores.json`), "Add to Chrome",
       and the India Post data credit.
-- [ ] A **live demo** on the landing page: type a pincode and see the search tiers it would check. This uses
-      `lib/planner.js` and `pincodes.json` in the browser, with no store involved (the same way Bracel's site runs its
-      engine).
+- [x] A **live demo** on the landing page ("Try the search plan"): type a pincode and see the tiers it would check,
+      from the extension's own `planner.js` and `pincodes.json`, in the browser (`site/demo.js`).
 - [ ] Point the Chrome dashboard's privacy policy URL at the new page.
 - [ ] Link the listing from the README.
 

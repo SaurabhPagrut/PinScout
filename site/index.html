@@ -23,11 +23,23 @@
     <p class="lede">PinScout checks your pincode, then nearby pincodes, your state and the rest of India, and stops at the first place the product can be delivered.</p>
     <div class="cta">
       <a class="btn primary" href="{{STORE_URL}}">Add to Chrome</a>
+      <a class="btn" href="#try">Try the search plan</a>
       <span class="small">Free · no sign-up · no ads · Chrome, Brave, Edge and other Chromium browsers</span>
     </div>
   </section>
 
   <figure class="shot"><img src="/img/screenshot-1.png" width="1280" height="800" alt="The PinScout side panel next to a product page that says 'Not deliverable', showing the nearest pincode where it can be delivered" loading="lazy"></figure>
+
+  <section id="try" class="card try" aria-labelledby="h-try">
+    <h2 id="h-try">Try the search plan</h2>
+    <p>Type a pincode to see which pincodes PinScout would check, and in what order. This runs the extension's own planner on the India Post list, here in your browser; nothing is sent anywhere. The delivery checks themselves happen in the extension, on a store's product page.</p>
+    <form id="demoForm" class="demo-form" autocomplete="off">
+      <label class="demo-pin"><span>Your pincode</span><input id="demoPin" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="560001" aria-describedby="h-try"></label>
+      <label><span>Nearby</span><select id="demoNearby"><option value="10">10</option><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option><option value="all">all</option></select></label>
+      <button type="submit" class="btn primary">Show the plan</button>
+    </form>
+    <div id="demoOut" class="demo-out" aria-live="polite"></div>
+  </section>
 
   <section id="how" class="grid" aria-label="How it works">
     <div class="card"><h3>1. Open a product</h3><p>Open a product page on a supported store and click the PinScout icon. It opens in the side panel, so you can keep using the page.</p></div>
@@ -62,5 +74,7 @@
   <p>Pincode data: Department of Posts, Government of India, via data.gov.in, under the Government Open Data Licence – India.</p>
   <p><a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="mailto:getsaurabhpagrut@gmail.com">Contact</a> · Made by <a href="https://saurabhpagrut.in/">Saurabh Pagrut</a></p>
 </div></footer>
+<script src="/js/planner.js" defer></script>
+<script src="/js/demo.js" defer></script>
 </body>
 </html>
