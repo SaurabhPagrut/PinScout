@@ -1,5 +1,6 @@
 // Builds the website (https://pinscout.saurabhpagrut.in, served by the Cloudflare Pages project pinscouts) into dist/site/:
-// site/index.html with the store list from extension/data/stores.json, about.html from site/about.md, privacy.html
+// site/index.html with the store list from extension/data/stores.json, about.html from site/about.md, add-a-store.html
+// from site/add-a-store.md (the guide to recording a new store), privacy.html
 // from PRIVACY.md (one source for the policy), a 404 page, the icons and listing images.
 // Cloudflare Pages: build command "npm run site", output directory "dist/site".
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -68,5 +69,6 @@ ${part("<footer>", "</div></footer>")}
 `;
 writeFileSync(`${out}/privacy.html`, page("PinScout privacy policy", "PinScout has no server and collects nothing. What it stores on your device, where delivery checks go, and why it asks for each permission.", md(readFileSync("PRIVACY.md", "utf8"))));
 writeFileSync(`${out}/about.html`, page("About PinScout", "Who makes PinScout, why, and how to get in touch.", md(readFileSync("site/about.md", "utf8"))));
+writeFileSync(`${out}/add-a-store.html`, page("Add a store to PinScout", "Record how a shopping site checks delivery, in about a minute, so PinScout can support it. Personal details are masked.", md(readFileSync("site/add-a-store.md", "utf8"))));
 writeFileSync(`${out}/404.html`, page("Not found · PinScout", "This page does not exist.", '<h1>Not deliverable to this address</h1>\n<p>PinScout searched nearby and found no page here. <a href="/">Back home</a></p>'));
 console.log(`${out}/`);
