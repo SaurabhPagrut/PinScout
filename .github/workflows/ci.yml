@@ -1,0 +1,42 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests (planner, scanner, recorder masking)
+        run: npm test
+      - name: Manifest in step with stores.json
+        run: |
+          out=$(python3 tools/sync_manifest.py)
+          echo "$out"
+          if echo "$out" | grep -q WARNING; then echo "::error::sync_manifest.py warned (see above)"; exit 1; fi
+          git diff --exit-code extension/manifest.json || { echo "::error::extension/manifest.json is out of date: run python3 tools/sync_manifest.py and commit"; exit 1; }
+      - name: Build every browser
+        run: npm run build
+      - name: Lint the Firefox package
+        run: npm run lint:firefox
+      - name: Build the website
+        run: npm run site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pinscout-extension
+          path: |
+            dist/*/pinscout-*.zip
+            dist/README.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pinscout-site
+          path: dist/site/

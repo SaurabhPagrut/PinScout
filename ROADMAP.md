@@ -42,8 +42,11 @@ Goal: the repo explains itself, and every change is checked the same way.
 - [ ] `scripts/lint.mjs`: every script parses; no `eval`, `new Function` or remote code; network calls only in the
       store adapters and the recorder; manifest and `package.json` versions agree; `tools/sync_manifest.py` reports
       nothing missing.
-- [ ] CI (GitHub Actions) on every PR: lint, unit tests, build, `web-ext lint` on the Firefox package, upload the zips
-      as artifacts.
+- [x] CI (GitHub Actions, `.github/workflows/ci.yml`) on every PR and push to `main`: unit tests, manifest in step with
+      `stores.json`, build every browser, `web-ext lint` on the Firefox package, build the website; zips and site
+      uploaded as artifacts.
+- [x] Dependabot (`.github/dependabot.yml`): weekly, for GitHub Actions and root npm.
+- [ ] Branch protection on `main`: require the CI check to pass before merging (owner, GitHub settings).
 - [ ] Decide what happens to the unused Go backend and Vue frontend (see Open questions).
 
 ## Phase 2: website and privacy page *(from Bracel)*
