@@ -13,15 +13,16 @@ html { background: var(--bg); }
 body { margin: 0; overflow-wrap: anywhere; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
 a { color: var(--accent); }
 .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
-.top { border-bottom: 1px solid var(--line); background: var(--panel); }
+.top { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--line); background: var(--panel); }
+html { scroll-padding-top: 72px; }
 .top .wrap { display: flex; align-items: center; gap: 10px; height: 56px; }
 .top a.brand { display: flex; align-items: center; gap: 8px; color: var(--fg); text-decoration: none; font-weight: 700; }
 .top nav { margin-left: auto; display: flex; align-items: center; gap: 16px; font-size: 14px; }
 .top nav a { color: var(--muted); text-decoration: none; }
 .top nav a:hover { color: var(--fg); }
 /* Buy Me a Coffee's own button colours: yellow, black text, black outline (no script, nothing loaded from them) */
-.btn.bmc, .top nav a.nav-coffee { background: #FFDD00; color: #000000; border: 1px solid #000000; }
-.btn.bmc:hover, .top nav a.nav-coffee:hover { background: #FFE433; color: #000000; }
+.top nav a.nav-coffee { background: #FFDD00; color: #000000; border: 1px solid #000000; }
+.top nav a.nav-coffee:hover { background: #FFE433; color: #000000; }
 .top nav a.nav-coffee { border-radius: 999px; padding: 2px 10px; font-weight: 600; }
 .hero { padding: 72px 0 40px; }
 .hero h1 { font-size: clamp(30px, 5.5vw, 50px); line-height: 1.1; margin: 0 0 16px; letter-spacing: -.02em; max-width: 18ch;
@@ -35,12 +36,18 @@ a { color: var(--accent); }
 .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
 .card h2, .card h3 { margin: 0 0 8px; font-size: 18px; }
 .card p { margin: 0; color: var(--muted); }
-.stores ul { list-style: none; padding: 0; margin: 16px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
-.stores li { display: flex; justify-content: space-between; gap: 8px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
-.stores .tag { font-size: 13px; font-weight: 600; }
+.stores ul { list-style: none; padding: 0; margin: 16px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 8px; }
+.stores li { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; white-space: nowrap; }
+.stores li > span:first-child { overflow: hidden; text-overflow: ellipsis; }
+.stores .tag { flex: none; font-size: 13px; font-weight: 600; }
 .tag.working { color: var(--ok); } .tag.experimental { color: var(--exp); } .tag.planned { color: var(--no); }
-.coffee { margin: 0 0 48px; text-align: center; }
-.coffee p + p { margin-top: 16px; }
+.projects { margin: 0 0 48px; }
+.projects h2 { font-size: 20px; margin: 0 0 16px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.card.proj { display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: var(--fg); }
+.card.proj p { flex: 1; }
+.card.proj .go { font-size: 14px; color: var(--accent); }
+.card.proj:hover { border-color: var(--accent); }
 .shot { margin: 0 0 8px; }
 .shot img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); display: block; }
 .doc { padding-top: 48px; padding-bottom: 64px; max-width: 760px; }
@@ -49,5 +56,5 @@ a { color: var(--accent); }
 .doc code { font: 14px ui-monospace, Menlo, monospace; background: var(--soft); padding: 1px 4px; border-radius: 4px; }
 footer { border-top: 1px solid var(--line); padding: 24px 0 40px; font-size: 14px; color: var(--muted); }
 footer p { margin: 0 0 8px; }
-@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .grid, .grid3 { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .hero { padding-top: 40px; } .top nav { gap: 12px; } .top nav .wide { display: none; } }
