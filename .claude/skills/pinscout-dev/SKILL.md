@@ -56,7 +56,8 @@ headlines on the left follow the same copy rules as the listing (true to the cod
 ## Video and GIFs: `scripts/video.js`, `scripts/gif.js`
 `npm run video` films the demo for YouTube into `dist/video/` (`pinscout-demo.webm`, 2560×1440, 60 fps, VP9; and
 `thumbnail.jpg`): title card, the real panel on the screenshots' page (types 560001, scans, the result, the range, the
-recorder), privacy and end cards. Frame by frame on Playwright's fake clock with a seeded `Math.random`, so runs are
+recorder), privacy and end cards. Frame by frame on the panel stand-in's own virtual clock (`virtual: true`, advanced
+with `__tick(ms)`; Playwright's fake clock doesn't reach the panel's iframe) and a seeded `Math.random`, so runs are
 identical; `--still` writes one picture per scene for a quick look, `--only panel` one scene. `npm run gif` makes
 Product Hunt's `gallery-1270x760.gif` (must stay under 3 MB) and `icon-240.gif` into `dist/gif/` (installs `gifenc`
 into `.check/pw` once). Both follow BracelTheCat's `scripts/video.mjs` and `gif.mjs`. Re-run after visible panel changes.
@@ -83,4 +84,4 @@ adapter only names its own store's hosts; no page loads anything from another si
 - **New or changed store adapter:** run `python3 tools/sync_manifest.py` (permissions come from `stores.json`; CI fails if it warns or the manifest is out of date), add the `<script>` to `sidepanel.html`, mark it `experimental` in `stores.json` until an available and a not-deliverable answer have both been seen, and update the README's Stores table.
 - **Strings with `\u` escapes:** the Edit and Write tools can turn them into literal invisible characters; write such strings with a Python script.
 - **Planning:** `ROADMAP.md` is the one roadmap (committed). Keep it updated as PRs open and merge.
-- **Code graph:** `graphify-out/` (git-ignored) holds a graph of the repo; query it (`graphify query "…"`) before reading lots of code, and run `graphify update .` after merged changes. It can't follow adapters calling `root.Adapters.register`, so it shows them unlinked from `adapters.js`; they aren't.
+- **Code graph:** `graphify-out/` (git-ignored) holds a graph of the repo; query it (`graphify query "…"`) before reading lots of code, and run `graphify update .` after merged changes. Its AST can't follow adapters calling `root.Adapters.register`; the graph carries those six edges, added by hand (EXTRACTED, with each call's line), so after an adapter is re-extracted, check they're still there. Fixture JSONs, `dist/` and `.check/` are left out (`graphify-out/.graphify_build.json`).
