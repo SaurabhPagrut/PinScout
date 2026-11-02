@@ -76,8 +76,8 @@ The panel in every screenshot is the real PinScout panel rendered from the exten
 ## Global assets (other fields in that section)
 - **Global promo video**: optional. A 20 to 30 second screen recording on YouTube (open a product, type pincode, watch it find one) helps a lot. Leave empty if you don't have one yet.
 - **Official URL**: leave unset unless you verify a website in Google Search Console.
-- **Homepage URL**: https://pinscout.pages.dev (switch to https://pinscout.saurabhpagrut.in once the domain is active).
-- **Support URL**: https://pinscout.pages.dev/about (an email address is not accepted here).
+- **Homepage URL**: https://pinscout.saurabhpagrut.in
+- **Support URL**: https://pinscout.saurabhpagrut.in/about (an email address is not accepted here).
 - **Mature content**: No.
 
 ## Getting people to use it (what actually moves installs)

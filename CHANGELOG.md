@@ -12,9 +12,9 @@ What changed in each version of the extension. The store-listing steps for a rel
 
 ## 1.0.3 (built 2 Nov 2026; upload to the Chrome Web Store pending)
 
-- A small "pinscout.pages.dev · ☕ Buy me a coffee" line at the bottom of the panel. Both are plain links that open in
+- A small "pinscout.saurabhpagrut.in · ☕ Buy me a coffee" line at the bottom of the panel. Both are plain links that open in
   a new tab; PinScout sends nothing when they're shown.
-- The privacy policy moved to https://pinscout.pages.dev/privacy (built from `PRIVACY.md`), with a paragraph on the
+- The privacy policy moved to https://pinscout.saurabhpagrut.in/privacy (built from `PRIVACY.md`), with a paragraph on the
   coffee link.
 - Chrome privacy tab: also declare **Location** (pincodes are regions). The Firefox build declares the same
   (`locationInfo`, `websiteContent`).

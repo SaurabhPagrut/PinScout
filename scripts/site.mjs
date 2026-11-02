@@ -1,4 +1,4 @@
-// Builds the website (pinscout.pages.dev, later pinscout.saurabhpagrut.in, on Cloudflare Pages) into dist/site/:
+// Builds the website (https://pinscout.saurabhpagrut.in, served by the Cloudflare Pages project pinscouts) into dist/site/:
 // site/index.html with the store list from extension/data/stores.json, about.html from site/about.md, privacy.html
 // from PRIVACY.md (one source for the policy), a 404 page, the icons and listing images.
 // Cloudflare Pages: build command "npm run site", output directory "dist/site".

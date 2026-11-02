@@ -6,7 +6,7 @@ Everything to paste into the Developer Dashboard. Upload file:
 ## 1. What you must do in the dashboard
 
 1. **Account**: in Settings, verify your contact email (the store blocks publishing until it is verified) and fill in the publisher name.
-2. **Privacy policy URL**: https://pinscout.pages.dev/privacy (later https://pinscout.saurabhpagrut.in/privacy). It is built from `PRIVACY.md` by `npm run site`; see `PUBLISHING.md` §1.
+2. **Privacy policy URL**: https://pinscout.saurabhpagrut.in/privacy. It is built from `PRIVACY.md` by `npm run site`; see `PUBLISHING.md` §1.
 3. **Package** tab of the existing PinScout item → **Upload new package** → `dist/chrome/pinscout-chrome-<version>.zip`.
 4. **Store listing** tab: paste the texts in section 2, choose category and language, upload the icon, screenshots and small promo tile (section 4).
 5. **Privacy** tab: paste the single purpose and each permission justification (section 3), tick the data-usage boxes as listed, tick the three certification boxes, paste the privacy policy URL.
