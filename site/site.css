@@ -41,6 +41,22 @@ html { scroll-padding-top: 72px; }
 .stores li > span:first-child { overflow: hidden; text-overflow: ellipsis; }
 .stores .tag { flex: none; font-size: 13px; font-weight: 600; }
 .tag.working { color: var(--ok); } .tag.experimental { color: var(--exp); } .tag.planned { color: var(--no); }
+.try { margin: 32px 0 0; }
+.try > p { max-width: 70ch; }
+.demo-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin: 16px 0; }
+.demo-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+.demo-form input, .demo-form select { font: inherit; font-size: 16px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.demo-form input { width: 9ch; letter-spacing: .08em; }
+.demo-form input:focus, .demo-form select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.demo-form .btn { font: inherit; font-weight: 600; cursor: pointer; }
+.demo-out { display: grid; gap: 10px; }
+.demo-out p { margin: 0; }
+.demo-home { font-weight: 600; color: var(--fg) !important; }
+.tier { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+.tier-head { display: flex; justify-content: space-between; gap: 12px; }
+.tier-head span { color: var(--muted); font-size: 14px; white-space: nowrap; }
+.tier .pins { font-size: 14px; margin-top: 4px !important; overflow-wrap: anywhere; }
+.demo-sum, .demo-note { font-size: 14px; }
 .projects { margin: 0 0 48px; }
 .projects h2 { font-size: 20px; margin: 0 0 16px; }
 .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
