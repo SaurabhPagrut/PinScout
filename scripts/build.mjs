@@ -28,13 +28,16 @@ function noSidePanel(m) {
 }
 // Firefox: a background script instead of a service worker, an add-on id, and the built-in data consent (required for
 // new add-ons since November 2025; Firefox for Android has it from 142, so its minimum is set too, or AMO warns).
-// "none": PinScout sends nothing to the developer or anyone else; the delivery checks go to the store the user is on.
+// Declared: locationInfo (the pincodes, i.e. regions, sent to the store in each check) and websiteContent (the product
+// data and the store's request/response read and sent during a check, and what the recorder captures). Mozilla counts
+// anything handled outside the add-on or the local browser, including requests to the site the user is on. Keep this in
+// step with the Chrome dashboard's data usage (webstore/privacy-practices-tab.txt).
 function firefox(m) {
   const man = noSidePanel(m);
   man.name = "PinScout: Out of Stock & Pincode Finder"; // AMO allows 45 characters; the Chrome name is longer
   man.background = { scripts: ["background.js"] };
   man.browser_specific_settings = {
-    gecko: { id: "pinscout@saurabhpagrut.in", strict_min_version: "140.0", data_collection_permissions: { required: ["none"] } },
+    gecko: { id: "pinscout@saurabhpagrut.in", strict_min_version: "140.0", data_collection_permissions: { required: ["locationInfo", "websiteContent"] } },
     gecko_android: { strict_min_version: "142.0" }
   };
   return man;
@@ -65,7 +68,7 @@ to upload. Zips of earlier versions stay in the same folder.
 | \`chrome/\` | \`pinscout-chrome-${V}.zip\` | https://chrome.google.com/webstore/devconsole | Live on the Chrome Web Store. Also what Brave, Vivaldi, Arc and Yandex users install |
 | \`edge/\` | \`pinscout-edge-${V}.zip\` | https://partner.microsoft.com/dashboard/microsoftedge | Same files as Chrome (Edge has the side panel) |
 | \`opera/\` | \`pinscout-opera-${V}.zip\` | https://addons.opera.com/developer/ | No side panel keys; the toolbar icon opens PinScout in its own window. Opera users can also install from the Chrome Web Store |
-| \`firefox/\` | \`pinscout-firefox-${V}.zip\` | https://addons.mozilla.org/developers/ | Background script instead of a service worker, add-on id \`pinscout@saurabhpagrut.in\`, shorter name (45-character limit), "no data collected" declared; Firefox 140+. Opens in its own window. Try it in Firefox before submitting |
+| \`firefox/\` | \`pinscout-firefox-${V}.zip\` | https://addons.mozilla.org/developers/ | Background script instead of a service worker, add-on id \`pinscout@saurabhpagrut.in\`, shorter name (45-character limit), data declared as location (pincodes) and website content, the same as on Chrome; Firefox 140+. Opens in its own window. Try it in Firefox before submitting |
 | \`safari/\` | (no zip) | App Store Connect, inside a Mac app | Needs Xcode and the Apple Developer Program: \`xcrun safari-web-extension-converter dist/safari/pinscout-safari-${V} --app-name PinScout --bundle-identifier in.saurabhpagrut.pinscout\`, then build, sign and submit from Xcode |
 
 Try one locally: Chrome/Edge/Opera → extensions page → Developer mode → Load unpacked → the \`pinscout-<browser>-${V}\` folder.

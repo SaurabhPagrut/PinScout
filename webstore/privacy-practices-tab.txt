@@ -31,8 +31,13 @@ PinScout does not use remote code. All JavaScript is included in the extension p
 
 DATA USAGE (checkboxes)
 -----------------------
-Tick: Website content
-Leave unticked: everything else (Personally identifiable information, Health, Financial and payment, Authentication, Personal communications, Location, Web history, User activity)
+Tick: Website content, Location
+Leave unticked: everything else (Personally identifiable information, Health, Financial and payment, Authentication, Personal communications, Web history, User activity)
+
+Why: Chrome counts data an extension handles, including data it only stores on the device or sends to the site the user is on.
+- Website content: the product data and the store's delivery answer are read from the page and sent in the store's own check; the recorder captures the page's requests.
+- Location: pincodes are regions. Each check sends one to the store, and the home pincode is kept on the device.
+The Firefox build declares the same two (locationInfo, websiteContent).
 
 Tick all three certifications at the bottom:
 [x] I do not sell or transfer user data to third parties, outside of the approved use cases

@@ -57,6 +57,7 @@ Tips: set the Chrome window to 1280×800 before capturing (or capture larger and
 - A small "pinscout.pages.dev · Buy me a coffee" line at the bottom of the panel. Both are plain links that open in a new tab.
 - Privacy policy now lives at https://pinscout.pages.dev/privacy, with a paragraph on the coffee link.
 - No change to how checks work, and no new permissions.
+- Privacy tab: also tick **Location** (pincodes are regions). See `privacy-practices-tab.txt`.
 
 ### 1.0.2
 - New store title and summary (they come from the zip): "PinScout: Out of Stock & Pincode Delivery Finder India", and a summary that leads with "Out of stock or not deliverable to your pincode?".
