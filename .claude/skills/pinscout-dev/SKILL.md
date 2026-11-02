@@ -12,7 +12,7 @@ Slow work is scripted. Use these instead of writing throwaway scripts or reading
 | --- | --- |
 | `node tests/run.js --changed` | while working: only the test files your change can affect (it reads what each test loads) |
 | `node tests/run.js planner scan` | one or a few files, by name or part of a name |
-| `npm test` | before every PR (CI runs the same) |
+| `npm test` | before every PR: `scripts/lint.mjs` (one line when clean), then every test file (CI runs the same) |
 | `node tests/run.js --list` | which file reads what |
 
 Output is one line per file; a failure prints only its failing checks with the lines that explain them, plus the path of the full log in `.check/<file>.log`. Read the summary; open a log only when the failure lines aren't enough. Never read PASS lines.
@@ -52,10 +52,17 @@ The panel runs outside the extension with a stand-in `chrome.*` (a product tab a
 - `npm run lint:firefox`: must be 0 errors (the 4 `sidePanel` warnings are expected; the code checks for it first).
 - `npm run site`: the website into `dist/site/`.
 
+## Lint: `scripts/lint.mjs`
+One line when clean, one FAIL line per problem: every script parses; no `eval`/`innerHTML`/string timers in the
+extension; network calls only in adapters and the recorder (elsewhere only `fetch(chrome.runtime.getURL(…))`); an
+adapter only names its own store's hosts; no page loads anything from another site; one version. The rules behind it:
+`EXTENSION_GUIDELINES.md`.
+
 ## House rules (from the owner; don't re-derive them)
 - **Every change ends in a branch, a push and a PR** without asking. Never commit to `main`. One PR per coherent change; fixes before features.
 - **Merging:** merge CI and Dependabot PRs yourself when green; ask before merging any other PR, unless the owner says to merge it.
-- **Version:** in both `extension/manifest.json` and `package.json`, plus an entry in section 5 of `webstore/chrome-web-store-guide.md`. The store title and summary come from the manifest, so changing them needs a release.
+- **Stacked PRs:** after the base PR merges, switch the stacked PR to `main` (`gh pr edit N --base main`) before it merges, or it never reaches `main`.
+- **Version:** in both `extension/manifest.json` and `package.json`, plus an entry in `CHANGELOG.md` (changes go under "Unreleased" until a release). The store title and summary come from the manifest, so changing them needs a release.
 - **Store and website copy must be true to the code.** Pincodes *are* sent to the store in each check; only the home pincode stays on the device; the original pincode is restored only on Amazon; the dataset is India Post's pincode list (not boundaries); the panel must stay open while it checks. Name stores only to say what PinScout works with, and keep "not affiliated".
 - **Data declarations stay in step:** the Chrome privacy tab (`webstore/privacy-practices-tab.txt`: Website content + Location), the Firefox build (`scripts/build.mjs`: `locationInfo`, `websiteContent`) and `PRIVACY.md` describe the same thing.
 - **No remote code, no third-party scripts** in the extension or on the website (the CSP blocks them; the Buy Me a Coffee buttons are plain CSS, not their widget).

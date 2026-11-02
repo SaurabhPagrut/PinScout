@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
       # one line per test file; a failure prints its failing checks (full logs are uploaded when CI fails)
-      - name: Unit tests (planner, scanner, recorder masking)
+      - name: Lint and tests (scripts/lint.mjs, then tests/run.js)
         run: npm test
       - name: Manifest in step with stores.json
         run: |
