@@ -46,7 +46,7 @@ Every push to `main` redeploys; other branches get a preview at `<branch>.pinsco
 4. Load the unpacked folder in the browser and run one scan before uploading.
 5. Add the version to section 5 of `webstore/chrome-web-store-guide.md`.
 
-`dist/` is not committed (`.gitignore`); it lives on this machine.
+`dist/` is not committed (`.gitignore`); it lives on this machine. CI builds the same zips on every PR: open the run on GitHub → **Artifacts** → `pinscout-extension`.
 
 ## 3. The stores
 

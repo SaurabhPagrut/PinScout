@@ -1,0 +1,15 @@
+# Weekly update PRs. The extension itself has no npm dependencies (plain JavaScript, no bundler), so this mostly keeps
+# the GitHub Actions in CI current. backend/ and frontend/ are the unused original skeleton and are left out on purpose.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
