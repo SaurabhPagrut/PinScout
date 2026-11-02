@@ -23,11 +23,8 @@
   }
 
   const all = () => stores.slice();
-  const byId = (id) => stores.find((s) => s.id === id) || null;
   const forUrl = (url) => (url ? stores.find((s) => s._re.test(url)) || null : null);
   const hostOf = (url) => { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; } };
-  // Chrome match patterns that cover a store (apex + subdomains)
-  const originPatterns = (s) => s.hosts.map((h) => `https://*.${h}/*`);
 
-  return { load, all, byId, forUrl, hostOf, originPatterns };
+  return { load, all, forUrl, hostOf };
 });
