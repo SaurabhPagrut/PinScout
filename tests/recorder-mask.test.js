@@ -1,6 +1,5 @@
-#!/usr/bin/env node
 // Checks the recorder's masking (extension/lib/recorder-page.js) against samples of what stores send.
-// Run: node tools/test_recorder_mask.js
+// Run: node tests/run.js recorder-mask
 "use strict";
 const fs = require("fs"), path = require("path"), vm = require("vm"), assert = require("assert");
 
@@ -28,8 +27,8 @@ let failed = 0;
 function check(name, out, mustNotContain, mustContain = []) {
   const s = typeof out === "string" ? out : JSON.stringify(out);
   const leaks = mustNotContain.filter((x) => s.includes(x)), missing = mustContain.filter((x) => !s.includes(x));
-  if (leaks.length || missing.length) { failed++; console.log("FAIL", name, { out: s, leaks, missing }); }
-  else console.log("ok  ", name);
+  if (leaks.length || missing.length) { failed++; console.log(`FAIL ${name}`); console.log(`    leaks: ${JSON.stringify(leaks)} · missing: ${JSON.stringify(missing)}`); console.log(`    out: ${s.slice(0, 200)}`); }
+  else console.log(`PASS ${name}`);
 }
 const PII = ["a.b@gmail.com", "9876543210", "Saurabh", "MG Road", "Lotus"];
 
@@ -67,5 +66,4 @@ check("typed address not kept", M.valueOf({ value: "Flat 4, MG Road, Pune 411001
 const fin = M.finalScrub({ marker: "411001", stateHints: ["window.user.email = a.b@gmail.com"], pageLoads: [{ url: "https://s.in/u/9876543210" }] });
 check("final pass", fin, ["a.b@gmail.com", "9876543210"], ['"marker":"411001"', '"emails":1', '"phones":1']);
 
-console.log(failed ? `\n${failed} failed` : "\nall passed");
 process.exit(failed ? 1 : 0);

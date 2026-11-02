@@ -15,3 +15,12 @@ __pycache__/
 
 # Built packages and website (npm run build, npm run site)
 dist/
+
+# Test logs and screenshots (tests/run.js, scripts/browse.js)
+.check/
+
+# Code graph (graphify): local, rebuilt with graphify update .
+graphify-out/
+
+# Personal Claude Code settings
+.claude/settings.local.json

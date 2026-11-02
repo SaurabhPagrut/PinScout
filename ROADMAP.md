@@ -39,6 +39,10 @@ Goal: the repo explains itself, and every change is checked the same way.
 - [x] One privacy policy source: `PRIVACY.md`, built into the website by `npm run site`.
 - [x] A root `package.json`: `npm test`, `npm run build`, `npm run site`, `npm run lint:firefox`.
 - [ ] More scripts as they come: `lint`, `screenshots`, `serve`.
+- [x] Fast dev tools *(from Bracely)*, described in the `pinscout-dev` skill (`.claude/skills/pinscout-dev/SKILL.md`):
+      `tests/run.js` (parallel, one line per file, only failures shown, logs in `.check/`, `--changed`),
+      `scripts/plan.js` (what a scan would check for a pincode), `scripts/browse.js` (the website and the side panel in a
+      real browser: screenshots, sideways scroll, errors, outside requests).
 - [ ] `scripts/lint.mjs`: every script parses; no `eval`, `new Function` or remote code; network calls only in the
       store adapters and the recorder; manifest and `package.json` versions agree; `tools/sync_manifest.py` reports
       nothing missing.
