@@ -7,7 +7,11 @@ It started with a familiar problem: a phone shows "not deliverable to your pinco
 I build small, free tools that run on your device and collect nothing:
 
 - **PinScout**: finds where an out-of-stock or undeliverable product can be delivered in India.
+- **Bracely**: a JSON formatter, validator and viewer with 100+ tools in one page. https://bracely.saurabhpagrut.in
+- **MyAdvoKit**: free e-Filing and PDF tools for Indian advocates. https://myadvokit.saurabhpagrut.in
 - **Bracel**: a virtual cat that lives on the edges of the websites you visit. https://bracel.saurabhpagrut.in
+
+More about me: https://saurabhpagrut.in
 
 ## Say hello
 
