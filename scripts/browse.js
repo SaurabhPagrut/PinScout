@@ -80,7 +80,9 @@ function stub(url) {
   };
 }
 
-(async () => {
+module.exports = { playwright, chrome, serve };
+
+if (require.main === module) (async () => {
   const cmd = pos[0];
   if (!["shot", "eval"].includes(cmd)) { console.log(fs.readFileSync(__filename, "utf8").split("\n").filter((l) => l.startsWith("//")).map((l) => l.slice(3)).join("\n")); return; }
   const target = pos[1] || "/", isPanel = target === "panel";

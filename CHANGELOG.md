@@ -5,6 +5,8 @@ What changed in each version of the extension. The store-listing steps for a rel
 
 ## Unreleased
 
+- Store screenshots and promo tiles are made by `npm run screenshots` from the real panel. Screenshot 5 now says
+  "Only your home pincode is saved, on your device" (it said "Your pincode stays on your device", which overstated it).
 - Removed four helpers nothing called (`Adapters.has`, `Adapters.pending`, `Stores.byId`, `Stores.originPatterns`).
   No change in behaviour.
 - The recorder's masking rules (`scrub`, `sensitiveKey`) are exposed alongside the others, for `tools/make-fixture.js`.

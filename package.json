@@ -12,6 +12,7 @@
     "lint:firefox": "npx --yes web-ext@8 lint -s dist/firefox/pinscout-firefox-$(node -p \"require('./package.json').version\")",
     "plan": "node scripts/plan.js",
     "browse": "node scripts/browse.js",
-    "fixture": "node tools/make-fixture.js"
+    "fixture": "node tools/make-fixture.js",
+    "screenshots": "node scripts/screenshots.js"
   }
 }
