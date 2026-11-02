@@ -579,7 +579,7 @@
       delete window.__pinscoutRecorder;
       return out;
     },
-    // masking helpers, exposed for tools/test_recorder_mask.js
+    // masking helpers, exposed for tests/recorder-mask.test.js
     _mask: { clean: clean, maskUrl: maskUrl, maskHeaders: maskHeaders, describe: describe, valueOf: valueOf, cleanAny: cleanAny, finalScrub: finalScrub },
   };
 })();
