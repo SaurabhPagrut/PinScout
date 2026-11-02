@@ -19,10 +19,11 @@ something that already works there.
       answers, screenshots, promo tiles).
 - [x] **Live on the Chrome Web Store** (by 2 Nov 2026):
       https://chromewebstore.google.com/detail/pinscout-pincode-delivery/oicfbaoamapgdhailjaaokgkdolalbco
-- [ ] Note the privacy policy URL used in the listing here (the store requires one). Phase 2 moves it to PinScout's
-      own website.
+- [x] Website and privacy policy (2 Nov 2026): https://pinscout.pages.dev, custom domain
+      `pinscout.saurabhpagrut.in` to follow (`PUBLISHING.md`).
 - [ ] Open PR: #1, README lists Reliance Digital as experimental.
-- [ ] **Next:** project hygiene and CI (Phase 1), then the website (Phase 2) and builds for Edge and Firefox (Phase 3).
+- [x] One build per browser (`npm run build` → `dist/<browser>/`), 1.0.3 with a Buy Me a Coffee link in the panel.
+- [ ] **Next:** deploy the site to Cloudflare Pages, upload 1.0.3, submit to Edge and Firefox (Phase 6).
 
 ## Phase 1: project hygiene *(from Bracel)*
 
@@ -35,10 +36,9 @@ Goal: the repo explains itself, and every change is checked the same way.
       what the recorder masks, store policy, a release checklist.
 - [ ] `CHANGELOG.md`, one entry per version (1.0.0, 1.0.1 so far). Move "What changed in this build" out of
       `webstore/chrome-web-store-guide.md`. That section says 1.0.0 while the top of the guide says 1.0.1.
-- [ ] One privacy policy source: `PRIVACY.md` at the root. Build the `.html` and `.txt` from it instead of keeping two
-      hand-edited copies (`webstore/privacy-policy.html` and `.txt`).
-- [ ] A root `package.json` with scripts: `lint`, `test`, `build`, `site`, `screenshots`, `serve`. Today the tests are
-      run one by one (`node tests/planner.test.js`).
+- [x] One privacy policy source: `PRIVACY.md`, built into the website by `npm run site`.
+- [x] A root `package.json`: `npm test`, `npm run build`, `npm run site`, `npm run lint:firefox`.
+- [ ] More scripts as they come: `lint`, `screenshots`, `serve`.
 - [ ] `scripts/lint.mjs`: every script parses; no `eval`, `new Function` or remote code; network calls only in the
       store adapters and the recorder; manifest and `package.json` versions agree; `tools/sync_manifest.py` reports
       nothing missing.
@@ -50,10 +50,10 @@ Goal: the repo explains itself, and every change is checked the same way.
 
 Goal: a public home for PinScout, with the privacy policy on it.
 
-- [ ] `site/` plus `npm run site` → `dist/site/`, hosted on Cloudflare Pages (e.g. `pinscout.saurabhpagrut.in`): a
-      landing page, `privacy.html` built from `PRIVACY.md`, and a 404 page. No analytics.
-- [ ] Landing page: what it does in one line, the screenshots, the stores it works on (read from
-      `extension/data/stores.json`, so the list can't fall out of date), "Add to Chrome" pointing at the listing,
+- [x] `site/` plus `npm run site` → `dist/site/`: landing page, About (`site/about.md`), privacy (from `PRIVACY.md`),
+      404. No analytics. Buy Me a Coffee button.
+- [ ] Deploy on Cloudflare Pages as `pinscout` (pinscout.pages.dev), then add `pinscout.saurabhpagrut.in` (owner).
+- [x] Landing page: what it does, a screenshot, the stores (read from `extension/data/stores.json`), "Add to Chrome",
       and the India Post data credit.
 - [ ] A **live demo** on the landing page: type a pincode and see the search tiers it would check. This uses
       `lib/planner.js` and `pincodes.json` in the browser, with no store involved (the same way Bracel's site runs its
@@ -66,7 +66,7 @@ Goal: a public home for PinScout, with the privacy policy on it.
 Goal: `npm run build` makes every store's package from one source tree. It replaces the hand-made
 `pinscout-chrome-webstore-<version>.zip`.
 
-- [ ] `scripts/build.mjs` → `dist/<browser>/pinscout-<browser>-<version>/` plus a zip, and `dist/README.md` saying which
+- [x] `scripts/build.mjs` → `dist/<browser>/pinscout-<browser>-<version>/` plus a zip (older zips kept), and `dist/README.md` saying which
       zip goes to which store. The zips hold only `extension/` (no tests, tools, backend or frontend). No bundler or
       minifying, so the stores get readable source.
 - [ ] **Chrome, Edge, Opera:** same files. Edge has `chrome.sidePanel`. Opera may not, in which case it uses the

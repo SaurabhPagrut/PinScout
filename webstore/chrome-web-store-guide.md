@@ -1,13 +1,13 @@
 # PinScout on the Chrome Web Store
 
-Everything to paste into the Developer Dashboard for version 1.0.2. Upload file:
-`pinscout-chrome-webstore-1.0.2.zip` (manifest.json is at the root of the zip, which the store requires).
+Everything to paste into the Developer Dashboard. Upload file:
+`dist/chrome/pinscout-chrome-<version>.zip`, made by `npm run build` (manifest.json is at the root of the zip, which the store requires).
 
 ## 1. What you must do in the dashboard
 
 1. **Account**: in Settings, verify your contact email (the store blocks publishing until it is verified) and fill in the publisher name.
-2. **Host the privacy policy**: the store needs a public URL. Put `privacy-policy.html` on any free host (GitHub Pages, Google Sites, or a public Google Doc with the same text) and copy the link.
-3. **Package** tab of the existing PinScout item → **Upload new package** → `pinscout-chrome-webstore-1.0.2.zip`.
+2. **Privacy policy URL**: https://pinscout.pages.dev/privacy (later https://pinscout.saurabhpagrut.in/privacy). It is built from `PRIVACY.md` by `npm run site`; see `PUBLISHING.md` §1.
+3. **Package** tab of the existing PinScout item → **Upload new package** → `dist/chrome/pinscout-chrome-<version>.zip`.
 4. **Store listing** tab: paste the texts in section 2, choose category and language, upload the icon, screenshots and small promo tile (section 4).
 5. **Privacy** tab: paste the single purpose and each permission justification (section 3), tick the data-usage boxes as listed, tick the three certification boxes, paste the privacy policy URL.
 6. **Distribution** tab: Public (or Unlisted if you want to test with a link first), regions: India (or all regions).
@@ -51,7 +51,12 @@ Check whether the product on the open shopping page can be delivered to a pincod
 
 Tips: set the Chrome window to 1280×800 before capturing (or capture larger and scale down to exactly 1280×800), hide your real name and address in the store header, and use a common product.
 
-## 5. What changed in this build
+## 5. What changed in each build
+
+### 1.0.3
+- A small "pinscout.pages.dev · Buy me a coffee" line at the bottom of the panel. Both are plain links that open in a new tab.
+- Privacy policy now lives at https://pinscout.pages.dev/privacy, with a paragraph on the coffee link.
+- No change to how checks work, and no new permissions.
 
 ### 1.0.2
 - New store title and summary (they come from the zip): "PinScout: Out of Stock & Pincode Delivery Finder India", and a summary that leads with "Out of stock or not deliverable to your pincode?".

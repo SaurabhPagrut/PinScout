@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "PinScout: Out of Stock & Pincode Delivery Finder India",
   "short_name": "PinScout",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Out of stock or not deliverable to your pincode? Find nearby pincodes, your state or anywhere in India where it can be delivered.",
   "minimum_chrome_version": "114",
   "icons": {
