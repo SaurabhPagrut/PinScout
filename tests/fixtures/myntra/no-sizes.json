@@ -1,0 +1,21 @@
+{
+ "about": "product data without a sizes[] list: an error that names what it found",
+ "source": "synthetic: written from myntra.js (the request and response follow its two recordings; where the page keeps the product, window.__myx, is ASSUMED); replace with recorded answers",
+ "url": "https://www.myntra.com/tshirts/roadster/roadster-men-black-cotton-pure-t-shirt/2345678/buy",
+ "pincode": "560001",
+ "page": {
+  "__myx": {
+   "pdpData": {
+    "name": "x",
+    "colours": []
+   }
+  }
+ },
+ "cookie": "_d_id=1b4e28ba-2fa1-11d2-883f-0016d3cca427%7C1700000000; other=1",
+ "responses": [],
+ "expect": {
+  "status": "error",
+  "messageIncludes": "pdpData"
+ },
+ "requestCount": 0
+}

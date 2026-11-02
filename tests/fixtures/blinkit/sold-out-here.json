@@ -1,0 +1,114 @@
+{
+ "about": "serviceable, but this product is sold out at the dark store: not available here",
+ "source": "synthetic: written from blinkit.js (autoSuggest and location/info follow its recording; the product layout's stock flags are ASSUMED); replace with recorded answers",
+ "url": "https://blinkit.com/prn/amul-taaza-toned-fresh-milk/prid/19512",
+ "h1": "Amul Taaza Toned Fresh Milk",
+ "pincode": "110001",
+ "localStorage": {
+  "auth": "{\"accessToken\": \"[token-a]\", \"session_uuid\": \"[token-s]\"}",
+  "device": "[token-d]"
+ },
+ "responses": [
+  {
+   "host": "blinkit.com",
+   "path": "/location/autoSuggest",
+   "status": 200,
+   "json": {
+    "ui_data": {
+     "suggestions": [
+      {
+       "title": {
+        "text": "Sector 18"
+       },
+       "subtitle": {
+        "text": "Noida, Uttar Pradesh 201301, India"
+       },
+       "meta": {
+        "place_id": "PLACE_OTHER"
+       }
+      },
+      {
+       "title": {
+        "text": "Connaught Place"
+       },
+       "subtitle": {
+        "text": "New Delhi, Delhi 110001, India"
+       },
+       "meta": {
+        "place_id": "PLACE_CP",
+        "session_token": "[token-t]"
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "host": "blinkit.com",
+   "path": "/location/info",
+   "status": 200,
+   "json": {
+    "is_serviceable": true,
+    "is_available": true,
+    "coordinate": {
+     "lat": 28.6315,
+     "lon": 77.2167
+    }
+   }
+  },
+  {
+   "host": "blinkit.com",
+   "path": "/v1/layout/product/19512",
+   "status": 200,
+   "json": {
+    "response": {
+     "snippets": [
+      {
+       "widget_type": "product",
+       "data": {
+        "product_id": 19512,
+        "is_sold_out": true,
+        "inventory": 0
+       }
+      }
+     ]
+    }
+   }
+  }
+ ],
+ "expect": {
+  "status": "unavailable"
+ },
+ "expectRequests": [
+  {
+   "host": "blinkit.com",
+   "path": "/location/autoSuggest",
+   "searchIncludes": [
+    "query=110001"
+   ],
+   "headers": {
+    "access_token": "[token-a]",
+    "session_uuid": "[token-s]",
+    "app_client": "consumer_web"
+   }
+  },
+  {
+   "host": "blinkit.com",
+   "path": "/location/info",
+   "searchIncludes": [
+    "place_id=PLACE_CP",
+    "session_token="
+   ]
+  },
+  {
+   "host": "blinkit.com",
+   "method": "POST",
+   "path": "/v1/layout/product/19512",
+   "headers": {
+    "lat": "28.6315",
+    "lon": "77.2167",
+    "access_token": "[token-a]"
+   }
+  }
+ ]
+}

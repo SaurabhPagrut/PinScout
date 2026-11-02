@@ -1,0 +1,67 @@
+{
+ "about": "available: success true, no article error, a delivery window (ASSUMED shape: no available answer was recorded yet)",
+ "source": "synthetic: written from reliancedigital.js and its notes (the not-deliverable shape is from the 2026-10-03 recording); replace with recorded answers",
+ "url": "https://www.reliancedigital.in/product/sony-wh-1000xm5-wireless-headphones-black/p/493839273",
+ "pincode": "560001",
+ "page": {
+  "FPI": {
+   "state": {
+    "product": {
+     "_data": {
+      "product": {
+       "uid": 7123456,
+       "item_code": "493839273",
+       "name": "Sony WH-1000XM5 Wireless Headphones (Black)",
+       "_custom_json": {
+        "brand": "Sony",
+        "vertical": "audio"
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "responses": [
+  {
+   "host": "www.reliancedigital.in",
+   "path": "/ext/raven-api/inventory/multi/articles-v2",
+   "status": 200,
+   "json": {
+    "data": {
+     "success": true,
+     "articles": [
+      {
+       "article_id": "493839273",
+       "quantity": 0,
+       "promise": {
+        "formatted": {
+         "min": "Wed, 5 Nov",
+         "max": "Fri, 7 Nov"
+        }
+       }
+      }
+     ]
+    }
+   }
+  }
+ ],
+ "expect": {
+  "status": "available",
+  "sla": "Wed, 5 Nov – Fri, 7 Nov",
+  "title": "Sony WH-1000XM5 Wireless Headphones (Black)"
+ },
+ "expectRequests": [
+  {
+   "host": "www.reliancedigital.in",
+   "method": "POST",
+   "path": "/ext/raven-api/inventory/multi/articles-v2",
+   "bodyIncludes": [
+    "\"pincode\":\"560001\"",
+    "\"article_id\":\"493839273\"",
+    "\"brand\":\"Sony\"",
+    "\"request_page\":\"pdp\""
+   ]
+  }
+ ]
+}

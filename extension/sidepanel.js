@@ -275,6 +275,13 @@ async function start() {
   } catch (e) {
     result = { outcome: "aborted", message: `Scan failed: ${e?.message || e}`, found: [], errors: 0, checked: 0, total: 0 };
   } finally {
+    // Stop (or a timeout) doesn't cancel a check already running in the store's page. An adapter that
+    // undoes something in end() (Amazon puts the visitor's own pincode back) must run after that check,
+    // or the check would land afterwards and change it again. Waits at most as long as one check may take.
+    if (adapter.end && result?.settled) {
+      if (result.running() > 0) addLog("Finishing the last check before putting the store's settings back…");
+      await Promise.race([result.settled(), sleep(20000)]);
+    }
     try { await adapter.end?.(tabId, session); } catch { /* best effort */ }
     setScanning(false);
     running = false;

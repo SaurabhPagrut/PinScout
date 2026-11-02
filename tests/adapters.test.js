@@ -7,7 +7,8 @@
 //     "url": "<product page>", "h1": "<the page's heading>", "pincode": "560001",
 //     "responses": [ { "host": "1.rome.api.flipkart.com", "path": "/api/4/page/fetch", "status": 200, "json": {…} | "text": "…" }, … ],
 //     "expect": { "status": "available", "sla": "…", "fatal": true, "messageIncludes": "…" },
-//     "expectRequests": [ { "host": "…", "bodyIncludes": ["…"] } ] }
+//     "page": { "FPI": {…} }, "cookie": "…", "localStorage": { "key": "value" },   (optional: the page's own state)
+//     "expectRequests": [ { "host": "…", "path": "…", "bodyIncludes": ["…"], "searchIncludes": ["…"], "headers": { "name": "value" } } ] }
 // Responses are served in order, and every request must match the next one's host and path (when given). A fixture's
 // "source" says whether it is a real recording (masked by the recorder) or written by hand from the adapter's code.
 const { test, assert } = require("./check.js");
@@ -35,15 +36,21 @@ for (const storeId of stores) {
         assert(got, `request ${i + 1} was never made (made ${requests.length})`);
         if (want.host) assert.equal(got.host, want.host, `request ${i + 1} host`);
         if (want.method) assert.equal(got.method, want.method, `request ${i + 1} method`);
+        if (want.path) assert.equal(got.path, want.path, `request ${i + 1} path`);
+        for (const s of want.searchIncludes || []) assert(got.search.includes(s), `request ${i + 1} query lacks ${s}: ${got.search}`);
+        for (const [k, v] of Object.entries(want.headers || {})) assert.equal(got.headers[k.toLowerCase()], v, `request ${i + 1} header ${k}`);
         for (const s of want.bodyIncludes || []) assert(got.body.includes(s), `request ${i + 1} body lacks ${s}: ${got.body.slice(0, 200)}`);
       }
+      if ("requestCount" in fx) assert.equal(requests.length, fx.requestCount, "number of requests");
       if (!fx.allowUnusedResponses) assert.equal(left.length, 0, `${left.length} fixture response(s) never requested`);
     });
   }
 }
 
 /* every adapter in lib/stores/ should have fixtures, or say why not yet */
-const PENDING = ["amazon", "blinkit", "myntra", "reliancedigital"]; // remove a store from this list when it gets fixtures
+// amazon: its verdict is read from the product page's HTML (DOMParser), which this sandbox doesn't have; its
+// pincode save-and-restore is tested in tests/amazon-restore.test.js instead
+const PENDING = ["amazon"]; // remove a store from this list when it gets fixtures
 test("every adapter has fixtures or is listed as pending", () => {
   const adapters = fs.readdirSync(path.join(ROOT, "extension/lib/stores")).filter((f) => f.endsWith(".js")).map((f) => f.slice(0, -3));
   const missing = adapters.filter((id) => !stores.includes(id) && !PENDING.includes(id));

@@ -1,0 +1,66 @@
+{
+ "about": "no Blinkit place for the pincode (Blinkit doesn't cover it): not available, one request",
+ "source": "synthetic: written from blinkit.js (autoSuggest and location/info follow its recording; the product layout's stock flags are ASSUMED); replace with recorded answers",
+ "url": "https://blinkit.com/prn/amul-taaza-toned-fresh-milk/prid/19512",
+ "h1": "Amul Taaza Toned Fresh Milk",
+ "pincode": "110001",
+ "localStorage": {
+  "auth": "{\"accessToken\": \"[token-a]\", \"session_uuid\": \"[token-s]\"}",
+  "device": "[token-d]"
+ },
+ "responses": [
+  {
+   "host": "blinkit.com",
+   "path": "/location/autoSuggest",
+   "status": 200,
+   "json": {
+    "ui_data": {
+     "suggestions": [
+      {
+       "title": {
+        "text": "Sector 18"
+       },
+       "subtitle": {
+        "text": "Noida, Uttar Pradesh 201301, India"
+       },
+       "meta": {
+        "place_id": "PLACE_OTHER"
+       }
+      },
+      {
+       "title": {
+        "text": "Connaught Place"
+       },
+       "subtitle": {
+        "text": "New Delhi, Delhi 999999, India"
+       },
+       "meta": {
+        "place_id": "PLACE_CP",
+        "session_token": "[token-t]"
+       }
+      }
+     ]
+    }
+   }
+  }
+ ],
+ "expect": {
+  "status": "unavailable",
+  "stock": "no Blinkit location for this pincode"
+ },
+ "expectRequests": [
+  {
+   "host": "blinkit.com",
+   "path": "/location/autoSuggest",
+   "searchIncludes": [
+    "query=110001"
+   ],
+   "headers": {
+    "access_token": "[token-a]",
+    "session_uuid": "[token-s]",
+    "app_client": "consumer_web"
+   }
+  }
+ ],
+ "requestCount": 1
+}
