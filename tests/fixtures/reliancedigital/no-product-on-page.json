@@ -1,0 +1,13 @@
+{
+ "about": "a page without the product state (not a product page, or not loaded): an error, and nothing is sent",
+ "source": "synthetic: written from reliancedigital.js and its notes (the not-deliverable shape is from the 2026-10-03 recording); replace with recorded answers",
+ "url": "https://www.reliancedigital.in/product/sony-wh-1000xm5-wireless-headphones-black/p/493839273",
+ "pincode": "560001",
+ "page": {},
+ "responses": [],
+ "expect": {
+  "status": "error",
+  "messageIncludes": "Couldn't read the product"
+ },
+ "requestCount": 0
+}

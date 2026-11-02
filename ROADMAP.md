@@ -97,7 +97,11 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
       promise, not JSON, 429, 500, not a product page), synthetic for now.
 - [ ] Recorded Croma answers (available + not deliverable): the adapter still *assumes* "no assignment" means not
       deliverable.
-- [ ] Fixtures for the experimental adapters (`PENDING` in `tests/adapters.test.js`).
+- [x] Fixtures for the experimental adapters, synthetic for now: Reliance Digital 10, Myntra 8, Blinkit 8 (available,
+      not deliverable, sold out, the store's errors, page data missing). The sandbox page can now carry the page's own
+      state (`page`, `cookie`, `localStorage`) and requests are checked for path, query and headers. Amazon reads
+      its verdict from HTML, so it stays in `PENDING`; its pincode save-and-restore has its own tests
+      (`tests/amazon-restore.test.js`).
 - [x] **Offline adapter tests** (`tests/adapters.test.js`, in CI): the real adapter in a Node sandbox page, `fetch`
       answered from the fixture, the verdict compared (status, delivery date, stock, fatal).
 - [ ] **End-to-end test of the built extension**: load `dist/test`, open a saved Flipkart page, run a scan against the
@@ -105,11 +109,14 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
       except the store's own host.
 - [ ] **Live smoke test**, kept out of CI *(from Bracel's `npm run test:live`)*: one known product per store and one
       pincode, run by hand before each release.
-- [ ] Get the experimental adapters to **working**. Each needs the sample its own notes say is missing:
+- [ ] Get the experimental adapters to **working**: recorded answers (one available, one not deliverable) for each,
+      made with `tools/make-fixture.js`. Each also needs the sample its own notes say is missing:
   - [ ] Reliance Digital: a recording for an *available* pincode, and confirmation that the call works without
         `x-fp-signature`.
   - [ ] Myntra: confirm the `window.__myx` path on several product types.
-  - [ ] Amazon: check the restore of the original pincode after a scan that was stopped part-way.
+  - [x] Amazon: the restore of the original pincode after a scan stopped part-way. Fixed a race: Stop didn't wait for
+        the check still running in the page, so it could land after the restore and leave the scanned pincode set.
+        The panel now waits for it (at most 20 s) before `end()`.
   - [ ] Blinkit: check that the session headers read from the visitor's own cookies hold up across a long scan.
 - [ ] Signed stores (JioMart, Zepto, Swiggy Instamart): try the "drive the store's own UI" approach from the README on
       one store first, using the recorder's `steps` capture.

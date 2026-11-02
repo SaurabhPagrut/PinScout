@@ -30,7 +30,9 @@
 
   // Resolves with the check's result, a timeout error, or STOPPED, whichever is
   // first, so a hung request can never freeze the scan or block Stop.
-  function guardedCheck(check, pincode, timeoutMs, shouldStop) {
+  // inflight: the checks still running in the page. Stop and the timeout don't cancel a check that is
+  // already in the store's page, so the scan's caller waits for these before undoing anything (see settled).
+  function guardedCheck(check, pincode, timeoutMs, shouldStop, inflight) {
     return new Promise((resolve) => {
       let done = false;
       const finish = (v) => { if (!done) { done = true; clearTimeout(timer); clearInterval(poll); resolve(v); } };
@@ -39,10 +41,11 @@
         message: `No answer after ${Math.round(timeoutMs / 1000)}s.`,
       }), timeoutMs);
       const poll = setInterval(() => { if (shouldStop()) finish(STOPPED); }, STOP_POLL_MS);
-      Promise.resolve()
+      const running = Promise.resolve()
         .then(() => check(pincode))
         .then((r) => finish(r || { status: "error", pincode, message: "No result." }),
           (e) => finish({ status: "error", pincode, message: e?.message || String(e) }));
+      if (inflight) { inflight.add(running); running.finally(() => inflight.delete(running)); }
     });
   }
 
@@ -52,6 +55,7 @@
   }) {
     const found = [];
     const failed = [];
+    const inflight = new Set();
     let checked = 0;
     let consecutiveErrors = 0;
     const total = tiers.reduce((n, t) => n + t.pins.length, 0);
@@ -61,7 +65,9 @@
     };
 
     const finish = (outcome, message) => {
-      const summary = { outcome, message, found, failed, errors: failed.length, checked, total };
+      // settled(): resolves once every check that was still running in the page has finished (or right away)
+      const summary = { outcome, message, found, failed, errors: failed.length, checked, total,
+        settled: () => Promise.allSettled([...inflight]).then(() => undefined), running: () => inflight.size };
       onEvent({ type: "done", ...summary });
       return summary;
     };
@@ -75,13 +81,13 @@
         first = false;
         if (shouldStop()) return finish("stopped", "Stopped.");
 
-        let res = await guardedCheck(check, entry.p, checkTimeout, shouldStop);
+        let res = await guardedCheck(check, entry.p, checkTimeout, shouldStop, inflight);
         if (res === STOPPED) return finish("stopped", "Stopped.");
         if (res.status === "error" && !res.fatal) {
           onEvent({ type: "retry", tier: tier.id, entry, res });
           await sleep(retryDelay);
           if (shouldStop()) return finish("stopped", "Stopped.");
-          res = await guardedCheck(check, entry.p, checkTimeout, shouldStop);
+          res = await guardedCheck(check, entry.p, checkTimeout, shouldStop, inflight);
           if (res === STOPPED) return finish("stopped", "Stopped.");
         }
         checked++;

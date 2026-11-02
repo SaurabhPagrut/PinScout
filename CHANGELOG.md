@@ -5,6 +5,11 @@ What changed in each version of the extension. The store-listing steps for a rel
 
 ## Unreleased
 
+- Amazon: pressing Stop while a check was still running could leave your Amazon delivery pincode set to the scanned
+  one, because the check finished after PinScout had put yours back. The panel now waits for that check first.
+- Tests: offline fixtures for Reliance Digital, Myntra and Blinkit (synthetic, from each adapter's notes), and tests
+  for Amazon's save-and-restore of your pincode.
+
 - Store screenshots and promo tiles are made by `npm run screenshots` from the real panel. Screenshot 5 now says
   "Only your home pincode is saved, on your device" (it said "Your pincode stays on your device", which overstated it).
 - Removed four helpers nothing called (`Adapters.has`, `Adapters.pending`, `Stores.byId`, `Stores.originPatterns`).

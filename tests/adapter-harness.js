@@ -1,11 +1,19 @@
 // The sandbox store page for adapter fixtures, shared by tests/adapters.test.js and tools/make-fixture.js: the real
 // lib/stores.js, lib/adapters.js and lib/stores/<id>.js run in a fresh page whose fetch() answers from the fixture's
 // "responses" in order, and check() returns the verdict that reaches the scanner (Adapters.forUrl(url).check → interpret).
+// A fixture can also give the page's own state: "page" (globals such as window.FPI or window.__myx), "cookie" and
+// "localStorage" (key → string), for adapters that read the product or the visitor's session from the page.
 const fs = require("fs"), path = require("path"), vm = require("vm");
 const ROOT = path.join(__dirname, "..");
 const read = (f) => fs.readFileSync(path.join(ROOT, f), "utf8");
 const SHARED = ["extension/lib/stores.js", "extension/lib/adapters.js"].map((f) => [f, read(f)]);
 const STORES = JSON.parse(read("extension/data/stores.json"));
+
+function storage(map = {}) {
+  const m = new Map(Object.entries(map));
+  return { get length() { return m.size; }, key: (i) => [...m.keys()][i] ?? null, getItem: (k) => (m.has(k) ? m.get(k) : null),
+    setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k) };
+}
 
 function page(fx, storeId) {
   const queue = [...fx.responses], requests = [];
@@ -18,11 +26,12 @@ function page(fx, storeId) {
       querySelector: (sel) => sel === "h1" && fx.h1 ? { textContent: fx.h1, innerText: fx.h1 } : null,
       querySelectorAll: () => [],
     },
-    localStorage: { getItem: () => null, setItem() {}, removeItem() {} },
-    sessionStorage: { getItem: () => null, setItem() {}, removeItem() {} },
+    localStorage: storage(fx.localStorage),
+    sessionStorage: storage(),
     async fetch(input, init = {}) {
       const u = new URL(typeof input === "string" ? input : input.url, fx.url), body = init.body == null ? "" : String(init.body);
-      requests.push({ host: u.hostname, path: u.pathname, method: (init.method || "GET").toUpperCase(), body });
+      const headers = Object.fromEntries(Object.entries(init.headers || {}).map(([k, v]) => [k.toLowerCase(), String(v)]));
+      requests.push({ host: u.hostname, path: u.pathname, search: u.search, method: (init.method || "GET").toUpperCase(), body, headers });
       const r = queue.shift();
       if (!r) throw new Error(`unexpected request ${u.hostname}${u.pathname} (no response left in the fixture)`);
       if (r.host && r.host !== u.hostname) throw new Error(`request went to ${u.hostname}, the fixture expected ${r.host}`);
@@ -33,6 +42,8 @@ function page(fx, storeId) {
     },
   };
   ctx.window = ctx; ctx.self = ctx; ctx.globalThis = ctx;
+  /* the page's own state, as plain data (JSON round trip, so nothing is shared between fixtures) */
+  Object.assign(ctx, JSON.parse(JSON.stringify(fx.page || {})));
   /* executeScript runs the adapter's page function inside this page, as Chrome does in the MAIN world */
   ctx.chrome = { scripting: { executeScript: async ({ func, args }) => [{ result: await func(...(args || [])) }] } };
   vm.createContext(ctx);

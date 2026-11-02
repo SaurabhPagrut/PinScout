@@ -1,0 +1,18 @@
+{
+ "about": "not a product page (no /prid/ in the address): an error, nothing is sent",
+ "source": "synthetic: written from blinkit.js (autoSuggest and location/info follow its recording; the product layout's stock flags are ASSUMED); replace with recorded answers",
+ "url": "https://blinkit.com/cn/milk/cid/14/922",
+ "h1": "Amul Taaza Toned Fresh Milk",
+ "pincode": "110001",
+ "localStorage": {
+  "auth": "{\"accessToken\": \"[token-a]\", \"session_uuid\": \"[token-s]\"}",
+  "device": "[token-d]"
+ },
+ "responses": [],
+ "expect": {
+  "status": "error",
+  "messageIncludes": "/prid/"
+ },
+ "expectRequests": [],
+ "requestCount": 0
+}

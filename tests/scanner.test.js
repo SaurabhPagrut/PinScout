@@ -50,3 +50,17 @@ test("default pacing waits at least the store's minDelay", async () => {
   const sl = []; await S.runScan({ ...base, delay: undefined, minDelay: 2000, sleep: async (ms) => sl.push(ms), tiers: T(["1", "2"]), check: () => ({ status: "unavailable" }) });
   assert(sl[0] >= 2000 && sl[0] <= 3700, `slept ${sl[0]} ms`);
 });
+test("settled() waits for a check still running in the page after Stop", async () => {
+  let stop = false, release, landed = false; setTimeout(() => stop = true, 50);
+  const r = await S.runScan({ ...base, shouldStop: () => stop, checkTimeout: 60000, tiers: T(["1"]),
+    check: () => new Promise((res) => { release = () => { landed = true; res({ status: "unavailable" }); }; }) });
+  assert.equal(r.outcome, "stopped"); assert.equal(landed, false, "the check was still running when the scan returned");
+  assert.equal(r.running(), 1);
+  let settled = false; const s = r.settled().then(() => settled = true);
+  await new Promise((res) => setTimeout(res, 20)); assert.equal(settled, false, "settled() resolved before the check finished");
+  release(); await s; assert.equal(landed, true);
+});
+test("settled() resolves at once when nothing is running", async () => {
+  const r = await S.runScan({ ...base, tiers: T(["1"]), check: () => ({ status: "available" }) });
+  await r.settled();
+});

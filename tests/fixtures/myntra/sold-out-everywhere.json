@@ -1,0 +1,64 @@
+{
+ "about": "no size has stock in any warehouse: sold out everywhere, nothing is sent, the scan can stop",
+ "source": "synthetic: written from myntra.js (the request and response follow its two recordings; where the page keeps the product, window.__myx, is ASSUMED); replace with recorded answers",
+ "url": "https://www.myntra.com/tshirts/roadster/roadster-men-black-cotton-pure-t-shirt/2345678/buy",
+ "pincode": "560001",
+ "page": {
+  "__myx": {
+   "pdpData": {
+    "id": 2345678,
+    "name": "Roadster Men Black Cotton T-shirt",
+    "price": {
+     "mrp": 799,
+     "discounted": 399
+    },
+    "analytics": {
+     "articleType": "Tshirts",
+     "gender": "Men"
+    },
+    "sizes": [
+     {
+      "skuId": 11001,
+      "label": "M",
+      "sizeSellerData": [
+       {
+        "sellerPartnerId": 4036,
+        "availableInWarehouses": [],
+        "discountedPrice": 399
+       }
+      ]
+     },
+     {
+      "skuId": 11002,
+      "label": "L",
+      "sizeSellerData": [
+       {
+        "sellerPartnerId": 4036,
+        "availableInWarehouses": [],
+        "discountedPrice": 399
+       }
+      ]
+     },
+     {
+      "skuId": 11003,
+      "label": "XL",
+      "sizeSellerData": [
+       {
+        "sellerPartnerId": 4036,
+        "availableInWarehouses": [],
+        "discountedPrice": 399
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "cookie": "_d_id=1b4e28ba-2fa1-11d2-883f-0016d3cca427%7C1700000000; other=1",
+ "responses": [],
+ "expect": {
+  "status": "unavailable",
+  "soldOutEverywhere": true
+ },
+ "requestCount": 0
+}
