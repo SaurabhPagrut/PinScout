@@ -43,7 +43,7 @@ for (const storeId of stores) {
 }
 
 /* every adapter in lib/stores/ should have fixtures, or say why not yet */
-const PENDING = ["amazon", "blinkit", "croma", "myntra", "reliancedigital"]; // remove a store from this list when it gets fixtures
+const PENDING = ["amazon", "blinkit", "myntra", "reliancedigital"]; // remove a store from this list when it gets fixtures
 test("every adapter has fixtures or is listed as pending", () => {
   const adapters = fs.readdirSync(path.join(ROOT, "extension/lib/stores")).filter((f) => f.endsWith(".js")).map((f) => f.slice(0, -3));
   const missing = adapters.filter((id) => !stores.includes(id) && !PENDING.includes(id));

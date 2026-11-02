@@ -1,0 +1,20 @@
+{
+ "about": "an HTML page instead of JSON: an error, not a guess",
+ "source": "synthetic: written from croma.js (the fields it reads), not a recording; replace with a recorded answer",
+ "url": "https://www.croma.com/apple-iphone-15-128gb-black-/p/300652",
+ "h1": "Apple iPhone 15 (128GB, Black)",
+ "pincode": "560001",
+ "responses": [
+  {
+   "host": "api.croma.com",
+   "path": "/inventory/oms/v2/tms/details-pwa/",
+   "status": 200,
+   "text": "<html><body>Access denied</body></html>"
+  }
+ ],
+ "expect": {
+  "status": "error",
+  "fatal": false,
+  "messageIncludes": "non-JSON"
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "about": "a Croma page that isn't a product (no /p/<number>): an error, and no request is made",
+ "source": "synthetic: written from croma.js (the fields it reads), not a recording; replace with a recorded answer",
+ "url": "https://www.croma.com/phones-wearables/c/1",
+ "h1": "",
+ "pincode": "560001",
+ "responses": [],
+ "expect": {
+  "status": "error",
+  "fatal": false,
+  "messageIncludes": "Open a Croma product page"
+ }
+}
