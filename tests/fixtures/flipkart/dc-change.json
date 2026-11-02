@@ -1,0 +1,68 @@
+{
+ "about": "HTTP 406 'DC Change' names another data centre: retried there, then available",
+ "source": "synthetic: written from flipkart.js (the fields it reads), not a recording; replace with a recorded answer",
+ "url": "https://www.flipkart.com/apple-iphone-15-black-128-gb/p/itm6ac6485515ae4?pid=MOBGTAGPTB3VS24W",
+ "h1": "Apple iPhone 15 (Black, 128 GB)",
+ "pincode": "560001",
+ "responses": [
+  {
+   "host": "1.rome.api.flipkart.com",
+   "path": "/api/4/page/fetch",
+   "status": 406,
+   "json": {
+    "ERROR_CODE": 2000,
+    "ERROR_MESSAGE": "DC Change",
+    "RESPONSE": {
+     "id": "2"
+    }
+   }
+  },
+  {
+   "host": "2.rome.api.flipkart.com",
+   "path": "/api/4/page/fetch",
+   "status": 200,
+   "json": {
+    "STATUS_CODE": 200,
+    "RESPONSE": {
+     "slots": [
+      {
+       "widget": {
+        "type": "DELIVERY",
+        "data": {
+         "deliveryContext": {
+          "pincode": "560001",
+          "serviceable": true,
+          "slaText": "Delivery by Fri, 10 Oct"
+         }
+        }
+       }
+      },
+      {
+       "widget": {
+        "type": "PRODUCT_SUMMARY",
+        "data": {
+         "title": "Apple iPhone 15",
+         "availabilityStatus": "IN_STOCK"
+        }
+       }
+      }
+     ]
+    }
+   }
+  }
+ ],
+ "expect": {
+  "status": "available"
+ },
+ "expectRequests": [
+  {
+   "host": "1.rome.api.flipkart.com"
+  },
+  {
+   "host": "2.rome.api.flipkart.com",
+   "bodyIncludes": [
+    "\"pincode\":\"560001\""
+   ]
+  }
+ ]
+}

@@ -92,10 +92,13 @@ Goal: `npm run build` makes every store's package from one source tree. It repla
 Goal: know when a store changes its delivery check before users notice. This is where PinScout differs most from
 Bracel. Bracel only reads the page; PinScout depends on six stores' private endpoints.
 
-- [ ] **Saved fixtures per store** *(Bracel's saved-pages idea)*: a saved product page plus recorded delivery-check
-      responses (available, not deliverable, sold out, throttled), with personal data masked by the recorder.
-- [ ] **Offline adapter tests** (Playwright): run each `pageCheck` against its fixture with network calls answered from
-      the recordings. Check the verdict each time (`serviceable`, `soldOut`, `eta`).
+- [x] **Fixtures per store** (`tests/fixtures/<store>/`): Flipkart has 8 cases (available, not deliverable, sold out, DC
+      change, throttled, a recommendation that disagrees, no serviceable field, not JSON), synthetic for now.
+      `tools/make-fixture.js` turns a real answer into a masked fixture (`tests/fixtures/README.md`).
+- [ ] Recorded answers for Flipkart (available + not deliverable) to replace the synthetic ones (owner captures).
+- [ ] Fixtures for Croma, then the experimental adapters (`PENDING` in `tests/adapters.test.js`).
+- [x] **Offline adapter tests** (`tests/adapters.test.js`, in CI): the real adapter in a Node sandbox page, `fetch`
+      answered from the fixture, the verdict compared (status, delivery date, stock, fatal).
 - [ ] **End-to-end test of the built extension**: load `dist/test`, open a saved Flipkart page, run a scan against the
       fixtures, and check that the panel shows the nearest-available card. Also check that no request goes anywhere
       except the store's own host.

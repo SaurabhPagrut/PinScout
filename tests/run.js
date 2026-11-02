@@ -13,12 +13,18 @@ const args = process.argv.slice(2), flag = (f) => args.includes(f), names = args
 const ALL = fs.readdirSync(__dirname).filter((f) => f.endsWith(".test.js")).sort();
 
 /* ---------- what each test reads, so --changed can pick the tests a change can affect ---------- */
-function reads(t) {
-  const s = fs.readFileSync(path.join(__dirname, t), "utf8"), out = new Set([`tests/${t}`, "tests/check.js"]);
-  for (const m of s.matchAll(/["'`]((?:\.\.\/)+[\w./-]+\.(?:js|json|html|css|py))["'`]/g)) {
-    const f = path.relative(ROOT, path.join(__dirname, m[1])); if (fs.existsSync(rel(f))) out.add(f);
+function reads(t, seen = new Set()) {
+  const s = fs.readFileSync(path.join(__dirname, t), "utf8"), out = new Set([`tests/${t}`, "tests/check.js"]); seen.add(t);
+  /* a helper in tests/ that this file requires reads files too (adapter-harness.js) */
+  for (const m of s.matchAll(/require\(["']\.\/([\w.-]+\.js)["']\)/g)) if (!seen.has(m[1]) && fs.existsSync(path.join(__dirname, m[1]))) reads(m[1], seen).forEach((f) => out.add(f));
+  const files = (d) => fs.readdirSync(rel(d), { recursive: true }).map((f) => path.join(d, String(f))).filter((f) => fs.statSync(rel(f)).isFile());
+  /* a file named from the test's folder (../extension/lib/x.js) or from the repo root (extension/data/stores.json) */
+  for (const m of s.matchAll(/["'`]((?:\.\.\/)*[\w./-]+\.(?:js|json|html|css|py))["'`]/g)) {
+    for (const f of [path.relative(ROOT, path.join(__dirname, m[1])), m[1]]) if (fs.existsSync(rel(f))) out.add(f);
   }
-  for (const m of s.matchAll(/["'`](tests\/fixtures\/[\w./-]+|fixtures\/[\w./-]+)["'`]/g)) out.add(m[1].startsWith("tests/") ? m[1] : `tests/${m[1]}`);
+  /* a folder the test builds paths from (`extension/lib/stores/${id}.js`, path.join(__dirname, "fixtures")): every file in it */
+  for (const m of s.matchAll(/["'`]((?:\.\.\/)*[\w.-]+(?:\/[\w.-]+)*\/)\$\{/g)) { const d = m[1].replace(/^(\.\.\/)+/, ""); if (fs.existsSync(rel(d))) files(d).forEach((f) => out.add(f)); }
+  if (/__dirname,\s*["']fixtures["']/.test(s) && fs.existsSync(rel("tests/fixtures"))) files("tests/fixtures").forEach((f) => out.add(f));
   return out;
 }
 function changedFiles() {

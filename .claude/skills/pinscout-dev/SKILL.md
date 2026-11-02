@@ -19,6 +19,15 @@ Output is one line per file; a failure prints only its failing checks with the l
 
 Every `tests/*.test.js` runs; there is no list to add a new file to. Write checks with `tests/check.js`: `test("name", () => { assert… })` (async allowed), so the runner can count them and show only failures.
 
+## Store adapters: fixtures, offline
+`tests/adapters.test.js` runs every adapter on every `tests/fixtures/<store>/<case>.json` (a store's answer plus the verdict
+PinScout should reach) in a sandbox page (`tests/adapter-harness.js`): the real `stores.js`, `adapters.js` and adapter,
+with `fetch` answered from the fixture. Add a real answer with
+`node tools/make-fixture.js <store> <case> --response <file> --url <page> --pincode <pin> --expect available|unavailable`
+(it masks with the recorder's rules and prints the adapter's verdict); how to capture one: `tests/fixtures/README.md`.
+When an adapter changes, every fixture for it must still pass; when a store changes, add its new answer as a fixture.
+A new adapter needs fixtures or an entry in `PENDING` in `tests/adapters.test.js`.
+
 ## What a scan would check: `scripts/plan.js`
 ```
 node scripts/plan.js 560001                                   tiers, counts, the first pincodes of each
