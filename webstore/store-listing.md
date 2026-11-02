@@ -17,7 +17,7 @@ English (India). If the dashboard only offers "English", pick English.
 ## Description (paste as is)
 
 ```
-Seeing "Currently unavailable for your pincode" or "Out of stock"? PinScout finds nearby pincodes, and places across India, where the product can be delivered.
+Seeing "Currently unavailable for your pincode" or "Out of stock"? PinScout also know as Pin Scout ʼ,ʼfinds nearby pincodes, and places across India, where the product can be delivered.
 
 When a shopping site says a phone, gadget or deal is out of stock or can't be delivered to your pincode, PinScout checks the areas around you for you, so you don't have to type pincode after pincode into the site's delivery box.
 
@@ -36,10 +36,10 @@ What it does
 • You choose how far to search: nearby only, your state, or all of India
 • Can keep going and list every place the product is available
 • Runs in Chrome's side panel, so you can keep browsing the product page while it checks
-• Puts your own delivery pincode back on sites that save it (Amazon)
+• Puts your own delivery pincode back if a scan changed it
 
-Supported stores
-Works on Flipkart and Croma. Amazon, Myntra, Blinkit and Reliance Digital are experimental. The panel tells you when the page you are on is supported.
+Where it works
+PinScout works on six popular Indian shopping sites: two fully supported and four experimental. The panel tells you when the page you are on is supported, and the full list is on pinscout.saurabhpagrut.in.
 
 How to use it
 1. Open a product page on a supported store.

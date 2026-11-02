@@ -20,6 +20,8 @@ What changed in each version of the extension. The store-listing steps for a rel
   (`locationInfo`, `websiteContent`).
 - Builds for Chrome, Edge, Opera, Firefox and Safari from one source (`npm run build`).
 - No change to how checks work, and no new permissions.
+- First submission rejected (Yellow Argon, "excessive keywords") for naming the stores in the description; the
+  description now says "six popular Indian shopping sites" and points to the website. Same package resubmitted.
 
 ## 1.0.2 (2 Nov 2026)
 

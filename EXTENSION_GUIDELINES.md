@@ -68,8 +68,9 @@ How to work on the code day to day is in `.claude/skills/pinscout-dev/SKILL.md`.
 
 ## 9. Store policy and listing
 
-- Store names appear only to say what PinScout works with; the listing says PinScout isn't affiliated with any store.
-  No keyword lists, no other products' trademarks as keywords.
+- **The store description names no store.** Chrome rejected 1.0.3 for "Flipkart and Croma. Amazon, Myntra, Blinkit and
+  Reliance Digital" as excessive keywords (Yellow Argon, 2 Nov 2026). Say "six popular Indian shopping sites" and point
+  to the website, which lists them. The listing says PinScout isn't affiliated with any store. No keyword lists.
 - Every claim in the listing, README and website is true to the code (`scripts/plan.js` for numbers).
 - No paid or swapped reviews.
 

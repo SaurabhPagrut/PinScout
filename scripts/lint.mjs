@@ -76,7 +76,18 @@ for (const f of [...walk(join(ROOT, "extension")), ...walk(join(ROOT, "site")), 
   for (const host of NOT_OURS) for (const m of src.matchAll(new RegExp(`(?<![\\w-])${host.replace(/\./g, "\\.")}`, "g"))) fail(f, lineOf(src, m.index), `links to ${host}, which isn't ours`);
 }
 
-/* 6. one version */
+/* 6. the store description names no store: Chrome rejected 1.0.3 for listing them ("excessive keywords", Yellow Argon,
+   2 Nov 2026). The website and the privacy policy may name them; the listing text may not. */
+{
+  const names = stores.map((s) => s.name).concat(["Amazon"]);
+  const listing = readFileSync(join(ROOT, "webstore/store-listing.md"), "utf8"), desc = (listing.match(/## Description[^\n]*\n+```\n([\s\S]*?)```/) || [])[1];
+  for (const [f, text] of [[join(ROOT, "webstore/description.txt"), readFileSync(join(ROOT, "webstore/description.txt"), "utf8")], [join(ROOT, "webstore/store-listing.md"), desc || ""]]) {
+    if (f.endsWith("store-listing.md") && !desc) { fail(f, 0, "couldn't find the Description block"); continue; }
+    for (const n of names) { const i = text.indexOf(n); if (i >= 0) fail(f, f.endsWith(".txt") ? lineOf(text, i) : 0, `the store description names "${n}" (Chrome treats store names there as excessive keywords)`); }
+  }
+}
+
+/* 7. one version */
 const mv = JSON.parse(readFileSync(join(ROOT, "extension/manifest.json"), "utf8")).version, pv = JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version;
 if (mv !== pv) fail(join(ROOT, "package.json"), 0, `version ${pv}, but extension/manifest.json is ${mv}`);
 

@@ -151,6 +151,8 @@ Bracel. Bracel only reads the page; PinScout depends on six stores' private endp
 - **Experimental adapters say what they found instead of guessing** when a store's response doesn't match what's
   expected.
 - 1.0.1 is live on the Chrome Web Store (listing above). Updates go through the same item.
+- 2 Nov 2026: the Chrome description doesn't name stores: 1.0.3 was rejected for it as excessive keywords (Yellow
+  Argon). The website lists them instead.
 - 2 Nov 2026: Reliance Digital is listed as experimental in the README to match `stores.json` (PR #1).
 - 2 Nov 2026: release tooling, website and multi-browser builds follow BracelTheCat's setup.
 
