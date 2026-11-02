@@ -26,8 +26,8 @@ something that already works there.
       `/privacy`; the Chrome dashboard's privacy policy URL points there.
 - [x] 1.0.3 uploaded to the Chrome Web Store (2 Nov 2026), with **Location** ticked on the privacy tab. Until it's
       reviewed, the public listing still shows 1.0.1.
-- [ ] **Next:** make the experimental adapters reliable (Phase 4), the demo video and GIF (Phase 5), the "Add a store"
-      guide on the site, make the repo public, then Firefox (Phase 6).
+- [ ] **Next:** make the experimental adapters reliable (Phase 4), the demo video and GIF (Phase 5), make the repo
+      public, then Firefox (Phase 6).
 
 ## Phase 1: project hygiene *(from Bracel)*
 
@@ -69,7 +69,8 @@ Goal: a public home for PinScout, with the privacy policy on it.
       from the extension's own `planner.js` and `pincodes.json`, in the browser (`site/demo.js`).
 - [x] Point the Chrome dashboard's privacy policy URL at the new page.
 - [x] Link the listing and the website from the README.
-- [ ] An "Add a store" guide on the site: how to record a store with "Help add a new store" and send it.
+- [x] An "Add a store" guide on the site (`site/add-a-store.md` → `/add-a-store`): how to record a store with "Help
+      add a new store" and send it, what a recording holds and what is masked.
 
 ## Phase 3: one build per browser *(from Bracel)*
 
