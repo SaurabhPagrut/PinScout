@@ -44,4 +44,4 @@ Tick all three certifications at the bottom:
 [x] I do not use or transfer user data for purposes that are unrelated to my item's single purpose
 [x] I do not use or transfer user data to determine creditworthiness or for lending purposes
 
-Privacy policy URL: https://pinscout.pages.dev/privacy (https://pinscout.saurabhpagrut.in/privacy once the domain is set up). Built from PRIVACY.md by npm run site.
+Privacy policy URL: https://pinscouts.pages.dev/privacy (https://pinscout.saurabhpagrut.in/privacy once the domain is set up). Built from PRIVACY.md by npm run site.

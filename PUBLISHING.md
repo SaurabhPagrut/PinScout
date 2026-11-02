@@ -15,7 +15,7 @@ it prints.
 
    | Setting | Value |
    | --- | --- |
-   | Project name | `pinscout` (gives https://pinscout.pages.dev) |
+   | Project name | `pinscouts` (gives https://pinscouts.pages.dev; `pinscout` was already taken) |
    | Production branch | `main` |
    | Framework preset | None |
    | Build command | `npm run site` |
@@ -23,18 +23,18 @@ it prints.
    | Root directory | (empty) |
    | Environment variables | `NODE_VERSION` = `22` |
 
-3. **Save and Deploy**. Check https://pinscout.pages.dev, https://pinscout.pages.dev/about and
-   https://pinscout.pages.dev/privacy.
+3. **Save and Deploy**. Check https://pinscouts.pages.dev, https://pinscouts.pages.dev/about and
+   https://pinscouts.pages.dev/privacy.
 4. Custom domain, when you're ready: the project → **Custom domains** → **Set up a custom domain** →
    `pinscout.saurabhpagrut.in`.
    - If `saurabhpagrut.in` is a zone in this Cloudflare account (as for Bracel), Cloudflare adds the DNS record itself.
-   - If its DNS is elsewhere, add `CNAME`, name `pinscout`, target `pinscout.pages.dev` there.
+   - If its DNS is elsewhere, add `CNAME`, name `pinscout`, target `pinscouts.pages.dev` there.
    - Add the domain in the Pages project first: a CNAME alone gives a 522 error.
 5. Once https://pinscout.saurabhpagrut.in/privacy loads over HTTPS, update the privacy policy, homepage and support URLs
    in the Chrome dashboard (`webstore/store-listing.md`), and the link in the panel footer
    (`extension/sidepanel.html`) in the next release.
 
-Every push to `main` redeploys; other branches get a preview at `<branch>.pinscout.pages.dev`.
+Every push to `main` redeploys; other branches get a preview at `<branch>.pinscouts.pages.dev`.
 
 ## 2. Building a release
 

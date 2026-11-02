@@ -19,7 +19,7 @@ something that already works there.
       answers, screenshots, promo tiles).
 - [x] **Live on the Chrome Web Store** (by 2 Nov 2026):
       https://chromewebstore.google.com/detail/pinscout-pincode-delivery/oicfbaoamapgdhailjaaokgkdolalbco
-- [x] Website and privacy policy (2 Nov 2026): https://pinscout.pages.dev, custom domain
+- [x] Website and privacy policy (2 Nov 2026): https://pinscouts.pages.dev, custom domain
       `pinscout.saurabhpagrut.in` to follow (`PUBLISHING.md`).
 - [x] One build per browser (`npm run build` → `dist/<browser>/`), 1.0.3 with a Buy Me a Coffee link in the panel.
 - [ ] **Next (owner):** deploy the site to Cloudflare Pages, upload 1.0.3, submit to Edge and Firefox (Phase 6).
@@ -57,7 +57,7 @@ Goal: a public home for PinScout, with the privacy policy on it.
 
 - [x] `site/` plus `npm run site` → `dist/site/`: landing page, About (`site/about.md`), privacy (from `PRIVACY.md`),
       404. No analytics. Buy Me a Coffee button.
-- [ ] Deploy on Cloudflare Pages as `pinscout` (pinscout.pages.dev), then add `pinscout.saurabhpagrut.in` (owner).
+- [ ] Deploy on Cloudflare Pages as `pinscouts` (pinscouts.pages.dev; `pinscout` was taken), then add `pinscout.saurabhpagrut.in` (owner).
 - [x] Landing page: what it does, a screenshot, the stores (read from `extension/data/stores.json`), "Add to Chrome",
       and the India Post data credit.
 - [ ] A **live demo** on the landing page: type a pincode and see the search tiers it would check. This uses
