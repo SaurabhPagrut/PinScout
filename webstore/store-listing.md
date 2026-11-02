@@ -17,7 +17,7 @@ English (India). If the dashboard only offers "English", pick English.
 ## Description (paste as is)
 
 ```
-Seeing "Currently unavailable for your pincode" or "Out of stock"? PinScout also know as Pin Scout ʼ,ʼfinds nearby pincodes, and places across India, where the product can be delivered.
+Seeing "Currently unavailable for your pincode" or "Out of stock"? PinScout, also known as Pin Scout, finds nearby pincodes, and places across India, where the product can be delivered.
 
 When a shopping site says a phone, gadget or deal is out of stock or can't be delivered to your pincode, PinScout checks the areas around you for you, so you don't have to type pincode after pincode into the site's delivery box.
 
